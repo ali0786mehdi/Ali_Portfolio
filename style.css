@@ -895,6 +895,43 @@ body {
     transform: none;
   }
 }
+/* PROJECT LINKS */
+.project-links {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+.project-link-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  background: var(--gold);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 2px;
+  font-weight: 500;
+  transition: background 0.2s, transform 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+.project-link-btn:hover {
+  background: var(--cream);
+  transform: translateY(-2px);
+}
+.project-link-btn.ghost {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border);
+}
+.project-link-btn.ghost:hover {
+  color: var(--gold);
+  border-color: var(--gold-dim);
+  background: transparent;
+}
 
 @media (max-width: 768px) {
   nav { padding: 1.25rem 1.5rem; }
