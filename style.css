@@ -154,7 +154,50 @@ nav.scrolled {
   top: 50%; left: 60%; transform: translate(-50%, -50%);
   pointer-events: none;
 }
-.hero-content { position: relative; max-width: 900px; }
+.hero-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  width: 100%;
+  position: relative;
+}
+.hero-content { position: relative; max-width: 600px; }
+
+/* HERO PHOTO */
+.hero-photo-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+  animation: fadeUp 0.8s 1.2s forwards;
+}
+.hero-photo {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--gold-dim);
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+.hero-photo:hover {
+  filter: grayscale(0%);
+  transform: translateY(-4px);
+}
+.hero-photo-ring {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 300px;
+  height: 300px;
+  border: 1px solid var(--gold-dim);
+  border-radius: 4px;
+  opacity: 0.3;
+  z-index: -1;
+}
 .hero-eyebrow {
   font-family: 'DM Mono', monospace;
   font-size: 0.7rem;
@@ -865,6 +908,10 @@ body {
   .form-row { grid-template-columns: 1fr; }
   .contact-form { padding: 1.5rem; }
   .hero-cta { gap: 1rem; flex-direction: column; align-items: flex-start; }
+ .hero-wrapper { flex-direction: column; gap: 2.5rem; }
+ .hero-photo-wrapper { width: 200px; height: 200px; }
+ .hero-photo { width: 200px; height: 200px; }
+ .hero-photo-ring { width: 200px; height: 200px; }
 
   /* ✅ ISSUE #3 — Mobile skills grid fix */
   .skills-layout {
