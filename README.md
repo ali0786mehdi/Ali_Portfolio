@@ -2,7 +2,7 @@
 
 > A minimalist, high-performance developer portfolio built to showcase projects at the intersection of code and curiosity. 
 
-![Portfolio Preview](./Portfolioali.png)  
+![Portfolio Preview](./image.png)  
 
 ## ⚡ Overview
 This repository contains the source code for my personal portfolio. Designed with a strict "less is more" aesthetic, it utilizes a dark-themed UI with gold typography to maintain a premium, professional brand. The site completely bypasses heavy JavaScript frameworks in favor of lightning-fast Vanilla web technologies.
