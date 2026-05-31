@@ -24,4 +24,4 @@ Because this project uses vanilla web technologies, running it locally is comple
 
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/ali0786mehdi/portfolio.git](https://github.com/ali0786mehdi/portfolio.git)
+   git clone [https://github.com/ali0786mehdi/portfolio.git]
