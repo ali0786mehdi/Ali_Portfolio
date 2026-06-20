@@ -21,7 +21,7 @@
 ## 📸 Preview
 
 <div align="center">
-  <img src="./image.png" alt="Portfolio Preview" width="90%" style="border-radius: 12px;" />
+  <img src="./image.png" alt="Portfolio Preview" width="90%" />
 </div>
 
 ---
@@ -53,3 +53,86 @@ Every line of code here was a deliberate choice — not a framework default.
 ---
 
 ## 🛠️ Tech Stack
+┌─────────────────────────────────────────────┐
+
+│  Structure  →  HTML5 (Semantic markup)       │
+
+│  Styling    →  CSS3 (Grid, Flexbox,          │
+
+│                Custom Properties, Keyframes) │
+
+│  Logic      →  Vanilla JavaScript            │
+
+│                (DOM, Intersection Observer,  │
+
+│                 Web Animations API,          │
+
+│                 requestAnimationFrame)       │
+
+│  Hosting    →  Netlify (CDN)                 │
+
+└─────────────────────────────────────────────┘
+
+---
+
+## 🚀 Running Locally
+
+No build step. No `npm install`. No config. Just clone and open.
+
+```bash
+# Clone the repo
+git clone https://github.com/ali0786mehdi/portfolio.git
+
+# Navigate into it
+cd portfolio
+
+# Open in browser — macOS
+open index.html
+
+# Open in browser — Windows
+start index.html
+```
+
+No server needed. The entire portfolio runs as a static file — drag `index.html` into any browser tab and it works.
+
+---
+
+## 📁 Project Structure
+portfolio/
+
+├── index.html          # Single-page entry point
+
+├── style.css           # All styling — variables, animations, layout
+
+├── script.js           # All interactivity — cursor, observer, toggle
+
+├── image.png           # Portfolio preview
+
+└── README.md
+
+---
+
+## 🎯 Design Philosophy
+
+> *"Constraints are the mother of creativity."*
+
+Most portfolios are React apps that load 300KB of JavaScript to render a name and three project cards. This portfolio makes a different bet — that **speed is a feature**, and that native browser APIs are powerful enough to build impressive, interactive experiences without a single dependency.
+
+The result: a portfolio that loads instantly on 3G, scores near-perfect on Lighthouse, and still ships a custom cursor, scroll animations, and an AI-powered content toggle — all in vanilla HTML, CSS, and JS.
+
+---
+
+## 📬 Contact
+
+<p align="left">
+  <a href="https://alimehdiport.netlify.app/"><img src="https://img.shields.io/badge/-Portfolio-c9a84c?style=for-the-badge" /></a>
+  <a href="https://linkedin.com/in/ali-mehdi-mirza-2ba8a624b"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
+  <a href="mailto:alimehdimirza1010@gmail.com"><img src="https://img.shields.io/badge/-Email-c9a84c?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+  <a href="https://leetcode.com/u/Ali_mehdi_mirza"><img src="https://img.shields.io/badge/-LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" /></a>
+</p>
+
+---
+
+<div align="center">
+  <sub>Built without shortcuts. Designed with intent.</sub>
+</div>
