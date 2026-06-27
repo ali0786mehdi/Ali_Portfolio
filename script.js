@@ -1,7 +1,10 @@
-// Toggle AI simplified vs technical description
+// ==========================================
+// 1. PROJECT TOGGLE (AI vs Technical)
+// ==========================================
 function toggleAI(btn, projectId) {
   const techDesc = document.getElementById(`desc-${projectId}-tech`);
   const simpleDesc = document.getElementById(`desc-${projectId}-simple`);
+  
   if (techDesc.style.display === "none") {
     techDesc.style.display = "block";
     simpleDesc.style.display = "none";
@@ -15,36 +18,67 @@ function toggleAI(btn, projectId) {
   }
 }
 
-// Custom cursor
+// ==========================================
+// 2. CUSTOM CURSOR (Disabled on Touch Devices)
+// ==========================================
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => {
-  mx = e.clientX; my = e.clientY;
-  cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
-});
-function animateRing() {
-  rx += (mx - rx) * 0.12;
-  ry += (my - ry) * 0.12;
-  ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
-  requestAnimationFrame(animateRing);
+
+// Detect if the user is on a touch device
+const isTouchDevice = (('ontouchstart' in window) ||
+  (navigator.maxTouchPoints > 0) ||
+  (navigator.msMaxTouchPoints > 0));
+
+if (!isTouchDevice) {
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+  });
+  
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx - 18}px, ${ry - 18}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Make cursor react to links and buttons
+  const clickables = document.querySelectorAll('a, button, .btn-primary, .btn-ghost, .btn-resume, .nav-resume-btn, .tag');
+  clickables.forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hover-effect'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hover-effect'));
+  });
+} else {
+  // Hide custom cursor elements completely on mobile
+  if(cursor) cursor.style.display = 'none';
+  if(ring) ring.style.display = 'none';
 }
-animateRing();
 
-// Make cursor react to links and buttons
-const clickables = document.querySelectorAll('a, .btn-primary, .btn-ghost, .btn-resume, .nav-resume-btn, .tag');
-clickables.forEach(el => {
-  el.addEventListener('mouseenter', () => ring.classList.add('hover-effect'));
-  el.addEventListener('mouseleave', () => ring.classList.remove('hover-effect'));
-});
-
-// Navbar scroll
+// ==========================================
+// 3. NAVBAR SCROLL EFFECT
+// ==========================================
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 60);
 });
 
-// Intersection observer for animations
+// ==========================================
+// 4. SCROLL PROGRESS BAR
+// ==========================================
+const progressBar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const total = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = `${(scrolled / total) * 100}%`;
+});
+
+// ==========================================
+// 5. INTERSECTION OBSERVERS (Staggered Animations)
+// ==========================================
+// For grids (Cards, Timeline items)
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
@@ -58,11 +92,27 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.timeline-item, .skill-card, .project-card').forEach(el => observer.observe(el));
 
-// Smart Contextual Greeting
+// For headings and labels
+const animateObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      animateObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('[data-animate], [data-animate-left]').forEach(el => {
+  animateObserver.observe(el);
+});
+
+// ==========================================
+// 6. SMART CONTEXTUAL GREETING
+// ==========================================
 function updateGreeting() {
   const greetingElement = document.getElementById('smart-greeting');
   const hour = new Date().getHours();
   let dynamicText = "";
+  
   if (hour >= 22 || hour < 5) {
     dynamicText = "Late night coding? Welcome. · ";
   } else if (hour >= 5 && hour < 12) {
@@ -72,11 +122,14 @@ function updateGreeting() {
   } else {
     dynamicText = "Good evening. · ";
   }
+  
   greetingElement.innerHTML = dynamicText + "Mumbai, Maharashtra · Open to Remote";
 }
 updateGreeting();
 
-// 1-Click Copy Email
+// ==========================================
+// 7. 1-CLICK COPY EMAIL
+// ==========================================
 function copyEmail(btn) {
   const email = "alimehdimirza1010@gmail.com";
   navigator.clipboard.writeText(email).then(() => {
@@ -90,7 +143,9 @@ function copyEmail(btn) {
   });
 }
 
-// ✅ FORMSPREE CONTACT FORM — AJAX submission (no page redirect)
+// ==========================================
+// 8. AJAX CONTACT FORM (Formspree)
+// ==========================================
 const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', async function (e) {
@@ -138,15 +193,10 @@ if (contactForm) {
     }
   });
 }
-// Scroll progress bar
-const progressBar = document.getElementById('progress-bar');
-window.addEventListener('scroll', () => {
-  const scrolled = window.scrollY;
-  const total = document.body.scrollHeight - window.innerHeight;
-  progressBar.style.width = (scrolled / total * 100) + '%';
-});
 
-// Dark / Light mode toggle
+// ==========================================
+// 9. DARK / LIGHT MODE TOGGLE
+// ==========================================
 const themeToggle = document.getElementById('theme-toggle');
 const iconMoon = document.getElementById('icon-moon');
 const iconSun = document.getElementById('icon-sun');
@@ -174,16 +224,4 @@ themeToggle.addEventListener('click', () => {
   const next = current === 'light' ? 'dark' : 'light';
   applyTheme(next);
   localStorage.setItem('theme', next);
-});
-const animateObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      animateObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('[data-animate], [data-animate-left]').forEach(el => {
-  animateObserver.observe(el);
 });
