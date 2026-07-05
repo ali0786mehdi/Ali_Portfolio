@@ -11,9 +11,9 @@
   <meta name="author" content="Ali Mehdi Mirza" />
   <link rel="canonical" href="https://ali0786mehdi.github.io/Ali_Portfolio/" />
 
-  <!-- PNG Format Icon -->
   <link rel="icon" type="image/png" href="/LOGO.png" />
-  <!-- Open Graph — LinkedIn WhatsApp Facebook -->
+
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ali0786mehdi.github.io/Ali_Portfolio/" />
   <meta property="og:title" content="Ali Mehdi Mirza — Full Stack Developer & AI Enthusiast" />
@@ -26,7 +26,7 @@
   <meta name="twitter:description" content="MERN stack developer and AI enthusiast. CGPA 9.95. Open to software developer internships in Mumbai or remote." />
   <meta name="twitter:image" content="https://ali0786mehdi.github.io/Ali_Portfolio/Portfolioali.png" />
 
-  <!-- JSON-LD Structured Data -->
+  <!-- JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,10 +35,7 @@
     "url": "https://ali0786mehdi.github.io/Ali_Portfolio/",
     "email": "alimehdimirza1010@gmail.com",
     "jobTitle": "Software Developer Intern",
-    "worksFor": {
-      "@type": "Organization",
-      "name": "Vidyalankar Institute of Technology"
-    },
+    "worksFor": { "@type": "Organization", "name": "Vidyalankar Institute of Technology" },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Mumbai",
@@ -54,7 +51,6 @@
   }
   </script>
 
-  <!-- Google Fonts preconnect for faster load -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
@@ -65,6 +61,7 @@
 
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
+  <div id="progress-bar"></div>
 
   <!-- NAV -->
   <nav id="navbar">
@@ -76,65 +73,64 @@
       <li><a href="#projects">Projects</a></li>
       <li><a href="#connect">Connect</a></li>
     </ul>
-    <!-- THEME TOGGLE -->
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
       <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
       <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
     </button>
-    <!-- ✅ RESUME BUTTON IN NAV -->
-    <a href="AMM_Resume_internship%20(1).pdf" target="_blank" class="nav-resume-btn">
+    <!-- NOTE: rename your resume file to something clean like AMM_Resume.pdf and update the href below -->
+    <a href="AMM_Resume.pdf" target="_blank" class="nav-resume-btn">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Resume
     </a>
   </nav>
-  <!-- PROGRESS BAR -->
-<div id="progress-bar"></div>
+
   <!-- HERO -->
   <section class="hero" id="hero">
     <div class="hero-grid-bg"></div>
     <div class="hero-glow"></div>
     <div class="hero-wrapper">
-    <div class="hero-content">
-      <div class="hero-eyebrow" id="smart-greeting">Mumbai, Maharashtra · Open to Remote</div>
-      
-      <h1>Ali Mehdi<br/><em>Mirza</em></h1>
-      <p class="hero-subtitle">
-        Engineer-in-training. Full-stack developer.
-        AI enthusiast. Building at the intersection
-        of code and curiosity.
-      </p>
-      <div class="hero-tags">
-        <span class="tag active">MERN Stack</span>
-        <span class="tag active">AI / ML</span>
-        <span class="tag">Python</span>
-        <span class="tag">DSA</span>
-        <span class="tag">Open Source</span>
-        <span class="tag">Entrepreneur</span>
+      <div class="hero-content">
+        <div class="hero-eyebrow" id="smart-greeting">Mumbai, Maharashtra · Open to Remote</div>
+
+        <h1>Ali Mehdi<br/><em>Mirza</em></h1>
+        <p class="hero-subtitle">
+          Engineer-in-training. Full-stack developer.
+          AI enthusiast. Building at the intersection
+          of code and curiosity.
+        </p>
+
+        <!-- SIGNATURE ELEMENT: terminal status, replaces generic tag-pill row -->
+        <div class="terminal-status" role="status" aria-label="Current status, presented as a terminal session">
+          <div class="terminal-bar">
+            <span class="dot dot-red"></span><span class="dot dot-yellow"></span><span class="dot dot-green"></span>
+            <span class="terminal-title">status.sh</span>
+          </div>
+          <div class="terminal-body">
+            <p><span class="prompt">$</span> <span class="cmd">whoami</span></p>
+            <p class="output">ali_mehdi_mirza — full-stack engineer, mumbai</p>
+            <p><span class="prompt">$</span> <span class="cmd">status --current</span></p>
+            <p class="output"><span id="terminal-typed"></span><span class="cursor-blink" aria-hidden="true">▌</span></p>
+          </div>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#projects" class="btn-primary">View Projects</a>
+          <a href="#connect" class="btn-ghost">Get in touch →</a>
+        </div>
       </div>
-      <!-- CURRENTLY BUILDING -->
-<div class="currently-building">
-  <span class="pulse-dot"></span>
-  Currently building — AI-Powered Study Planner · MERN + Gemini API
-</div>
-      <div class="hero-cta">
-        <a href="#projects" class="btn-primary">View Projects</a>
-        <a href="#connect" class="btn-ghost">Get in touch →</a>
-        <!-- ✅ RESUME BUTTON IN HERO -->
+
+      <div class="hero-photo-wrapper">
+        <div class="hero-photo-ring"></div>
+        <img
+          src="profile.jpeg"
+          alt="Ali Mehdi Mirza — Full Stack Developer"
+          class="hero-photo"
+          width="320"
+          height="320"
+          loading="eager"
+          data-fallback-hide="true"
+        />
       </div>
-     </div>
-    <!-- HERO PHOTO -->
-    <div class="hero-photo-wrapper">
-      <div class="hero-photo-ring"></div>
-      <img
-        src="profile.jpeg"
-        alt="Ali Mehdi Mirza — Full Stack Developer"
-        class="hero-photo"
-        width="320"
-        height="320"
-        loading="eager"
-        onerror="this.parentElement.style.display='none'"
-      />
-    </div>
     </div>
   </section>
 
@@ -145,49 +141,33 @@
     <div class="about-grid" data-animate>
       <div class="about-text">
         <p>
-  I'm a <strong>Computer Engineering student at Vidyalankar Institute of Technology</strong>, 
-  Mumbai — pursuing my Bachelor's with a CGPA of 9.95 while actively building 
-  full-stack and AI-powered applications.
-</p>
-<p>
-  My technical toolkit spans the <strong>MERN stack, Python, deep learning, and the Gemini API</strong>. 
-  I believe in learning by building — from production-ready web apps to open-source 
-  contributions, every project sharpens both skill and perspective.
-</p>
-<p>
-  I also run a small business and contributed to AI model training at Outlier AI — 
-  experiences that sharpened how I think about products, users, and real-world systems.
-</p>
+          I'm a <strong>Computer Engineering student at Vidyalankar Institute of Technology</strong>,
+          Mumbai — pursuing my Bachelor's with a CGPA of 9.95 while actively building
+          full-stack and AI-powered applications.
+        </p>
+        <p>
+          My technical toolkit spans the <strong>MERN stack, TypeScript, Python, and the Gemini API</strong>.
+          I believe in learning by building — from production-ready backend systems to open-source
+          contributions, every project sharpens both skill and perspective.
+        </p>
+        <p>
+          I also run a small business and contributed to AI model training at Outlier AI —
+          experiences that sharpened how I think about products, users, and real-world systems.
+        </p>
       </div>
       <div class="github-stats">
-  <img 
-    src="https://github-readme-streak-stats.herokuapp.com?user=ali0786mehdi&theme=dark&hide_border=true&background=0a0a0b&ring=c9a84c&fire=c9a84c&currStreakLabel=c9a84c&sideLabels=c9a84c&dates=6b6b7a&sideNums=f8f6f1" 
-    alt="GitHub Streak Stats — Ali Mehdi Mirza"
-    width="480"
-    height="195"
-    loading="lazy"
-    onerror="this.style.display='none'"
-    style="width:100%;max-width:480px;border-radius:4px;display:block;margin-bottom:2rem;"
-  />
-</div>
+        <img
+          src="https://github-readme-streak-stats.herokuapp.com?user=ali0786mehdi&theme=dark&hide_border=true&background=0a0a0b&ring=c9a84c&fire=c9a84c&currStreakLabel=c9a84c&sideLabels=c9a84c&dates=6b6b7a&sideNums=f8f6f1"
+          alt="GitHub Streak Stats — Ali Mehdi Mirza"
+          width="480" height="195" loading="lazy" data-fallback-hide="true"
+        />
+      </div>
       <div class="stat-grid">
-  <div class="stat-box">
-    <div class="stat-num">9.95</div>
-    <div class="stat-desc">CGPA / 10</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-num">3+</div>
-    <div class="stat-desc">Projects Deployed</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-num">5+</div>
-    <div class="stat-desc">Tech Stacks</div>
-  </div>
-  <div class="stat-box">
-    <div class="stat-num">∞</div>
-    <div class="stat-desc">Curiosity</div>
-  </div>
-  </div>
+        <div class="stat-box"><div class="stat-num">9.95</div><div class="stat-desc">CGPA / 10</div></div>
+        <div class="stat-box"><div class="stat-num">4+</div><div class="stat-desc">Projects Shipped</div></div>
+        <div class="stat-box"><div class="stat-num">5+</div><div class="stat-desc">Tech Stacks</div></div>
+        <div class="stat-box"><div class="stat-num">∞</div><div class="stat-desc">Curiosity</div></div>
+      </div>
     </div>
   </section>
 
@@ -196,44 +176,38 @@
     <div class="section-label" data-animate-left>Experience</div>
     <h2 data-animate>Where I've<br/>contributed</h2>
     <div class="timeline">
-
-      <div class="timeline">
-        
-  <!-- SSoC 2026 Experience Addition -->
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-date">Summer 2026</div>
-    <div class="timeline-role">Open Source Contributor</div>
-    <div class="timeline-company">Social Summer of Code (SSoC) 2026</div>
-    <p class="timeline-desc">
-      Selected for the highly competitive Social Summer of Code 2026 program. Engineered robust algorithmic enhancements and AI-driven automation pipelines for major repositories including <strong>Algo-Infinity-Verse</strong> and <strong>AI-Agent-Automation</strong>. Collaborated with a global community to optimize code efficiency and merge production-ready pull requests.
-    </p>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-date">May 2025 – Jul 2025</div>
-    <div class="timeline-role">Freelance AI Trainer</div>
-    <div class="timeline-company">Outlier AI · Remote</div>
-    <p class="timeline-desc">
-      Trained and evaluated large language models through data annotation, 
-      prompt engineering, and response quality rating — contributing to 
-      LLM reliability improvements across production AI systems.
-    </p>
-  </div>
-
-  <div class="timeline-item">
-    <div class="timeline-dot"></div>
-    <div class="timeline-date">Ongoing</div>
-    <div class="timeline-role">B.Tech, Computer Engineering</div>
-    <div class="timeline-company">Vidyalankar Institute of Technology · Mumbai</div>
-    <p class="timeline-desc">
-      Pursuing Computer Engineering with a CGPA of 9.95/10. 
-      Coursework spanning data structures, algorithms, computer graphics, 
-      database systems, and full-stack web development.
-    </p>
-  </div>
-</div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Summer 2026</div>
+        <div class="timeline-role">Open Source Contributor</div>
+        <div class="timeline-company">Social Summer of Code (SSoC) 2026</div>
+        <p class="timeline-desc">
+          Selected for the highly competitive Social Summer of Code 2026 program. Engineered algorithmic enhancements and AI-driven automation pipelines for <strong>Algo-Infinity-Verse</strong> and <strong>AI-Agent-Automation</strong>. Collaborated with a global community to optimize code efficiency and merge production-ready pull requests.
+        </p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">May 2025 – Jul 2025</div>
+        <div class="timeline-role">Freelance AI Trainer</div>
+        <div class="timeline-company">Outlier AI · Remote</div>
+        <p class="timeline-desc">
+          Trained and evaluated large language models through data annotation,
+          prompt engineering, and response quality rating — contributing to
+          LLM reliability improvements across production AI systems.
+        </p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">Ongoing</div>
+        <div class="timeline-role">B.Tech, Computer Engineering</div>
+        <div class="timeline-company">Vidyalankar Institute of Technology · Mumbai</div>
+        <p class="timeline-desc">
+          Pursuing Computer Engineering with a CGPA of 9.95/10.
+          Coursework spanning data structures, algorithms, computer graphics,
+          database systems, and full-stack web development.
+        </p>
+      </div>
+    </div>
   </section>
 
   <!-- SKILLS -->
@@ -245,76 +219,60 @@
         <div class="skill-icon">🌐</div>
         <div class="skill-title">Web Development</div>
         <div class="skill-items">
-          <span class="skill-pill">MongoDB</span>
-          <span class="skill-pill">Express.js</span>
-          <span class="skill-pill">React</span>
-          <span class="skill-pill">Node.js</span>
+          <span class="skill-pill">MongoDB</span><span class="skill-pill">Express.js</span>
+          <span class="skill-pill">React</span><span class="skill-pill">Node.js</span>
           <span class="skill-pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔐</div>
+        <div class="skill-title">Backend & Auth</div>
+        <div class="skill-items">
+          <span class="skill-pill">TypeScript</span><span class="skill-pill">Prisma</span>
+          <span class="skill-pill">PostgreSQL</span><span class="skill-pill">JWT / OAuth2</span>
         </div>
       </div>
       <div class="skill-card">
         <div class="skill-icon">🐍</div>
         <div class="skill-title">Programming</div>
         <div class="skill-items">
-          <span class="skill-pill">Python</span>
-          <span class="skill-pill">JavaScript</span>
-          <span class="skill-pill">DSA</span>
-          <span class="skill-pill">OOP</span>
+          <span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span>
+          <span class="skill-pill">DSA</span><span class="skill-pill">OOP</span>
         </div>
       </div>
       <div class="skill-card">
-  <div class="skill-icon">🚀</div>
-  <div class="skill-title">Deployment</div>
-  <div class="skill-items">
-    <span class="skill-pill">Vercel</span>
-    <span class="skill-pill">Render</span>
-    <span class="skill-pill">GitHub Pages</span>
-    <span class="skill-pill">Postman</span>
-  </div>
-</div>
+        <div class="skill-icon">🚀</div>
+        <div class="skill-title">Deployment</div>
+        <div class="skill-items">
+          <span class="skill-pill">Docker</span><span class="skill-pill">Vercel</span>
+          <span class="skill-pill">Render</span><span class="skill-pill">Railway</span>
+        </div>
+      </div>
       <div class="skill-card">
-  <div class="skill-icon">⚙️</div>
-  <div class="skill-title">Tools & Workflow</div>
-  <div class="skill-items">
-    <span class="skill-pill">Git</span>
-    <span class="skill-pill">GitHub</span>
-    <span class="skill-pill">VS Code</span>
-    <span class="skill-pill">Postman</span>
-  </div>
-</div>
+        <div class="skill-icon">🤖</div>
+        <div class="skill-title">AI / ML</div>
+        <div class="skill-items">
+          <span class="skill-pill">Gemini API</span><span class="skill-pill">Deep Learning</span>
+          <span class="skill-pill">CNN</span><span class="skill-pill">Image Classification</span>
+        </div>
+      </div>
       <div class="skill-card">
-  <div class="skill-icon">🤖</div>
-  <div class="skill-title">AI / ML</div>
-  <div class="skill-items">
-    <span class="skill-pill">Python</span>
-    <span class="skill-pill">Deep Learning</span>
-    <span class="skill-pill">CNN</span>
-    <span class="skill-pill">Gemini API</span>
-    <span class="skill-pill">Image Classification</span>
-       </div>
-       </div>
-      <div class="skill-card">
-  <div class="skill-icon">🗄️</div>
-  <div class="skill-title">Databases</div>
-  <div class="skill-items">
-    <span class="skill-pill">MongoDB</span>
-    <span class="skill-pill">MySQL</span>
-    <span class="skill-pill">Mongoose</span>
-    <span class="skill-pill">DBMS</span>
-  </div>
-</div>
+        <div class="skill-icon">🗄️</div>
+        <div class="skill-title">Databases</div>
+        <div class="skill-items">
+          <span class="skill-pill">PostgreSQL</span><span class="skill-pill">MongoDB</span>
+          <span class="skill-pill">MySQL</span><span class="skill-pill">Mongoose</span>
+        </div>
+      </div>
     </div>
     <div class="leetcode-stats">
-  <div class="section-label" style="margin-top:3rem;">DSA Progress</div>
-  <img 
-  src="https://leetcard.jacoblin.cool/Ali_mehdi_mirza?theme=dark&font=Poppins&ext=contest&border=0&radius=4" 
-  alt="LeetCode Stats — Ali Mehdi Mirza"
-  width="500"
-  height="200"
-  loading="lazy"
-  onerror="this.style.display='none'"
-  style="margin-top:1.5rem;width:100%;max-width:500px;border-radius:4px;display:block;"/>
-  </div>
+      <div class="section-label" style="margin-top:3rem;">DSA Progress</div>
+      <img
+        src="https://leetcard.jacoblin.cool/Ali_mehdi_mirza?theme=dark&font=Poppins&ext=contest&border=0&radius=4"
+        alt="LeetCode Stats — Ali Mehdi Mirza"
+        width="500" height="200" loading="lazy" data-fallback-hide="true"
+        style="margin-top:1.5rem;width:100%;max-width:500px;border-radius:4px;display:block;"/>
+    </div>
   </section>
 
   <!-- PROJECTS -->
@@ -323,139 +281,148 @@
     <h2 data-animate>Things I've<br/>built</h2>
     <div class="projects-grid">
 
-      <div class="project-card">
-  <div class="project-header">
-    <span class="project-num">01 / Full-Stack · AI</span>
-    <span class="project-icon">🧠</span>
-  </div>
-  <div class="project-body">
-    <div class="project-title">AI-Powered Study Planner</div>
-    <p class="project-desc">
-      Full-stack MERN application where users enter their exam date and 
-      subjects — Gemini AI generates a personalised day-by-day study schedule. 
-      Features JWT authentication, personal dashboard, and progress tracking.
-    </p>
-    <div class="project-stack">
-      <span class="stack-tag">React</span>
-      <span class="stack-tag">Node.js</span>
-      <span class="stack-tag">MongoDB</span>
-      <span class="stack-tag">Gemini API</span>
-      <span class="stack-tag">JWT Auth</span>
-      <span class="stack-tag">Vercel</span>
-    </div>
-   <div class="project-links">
-      <a href="https://ai-study-planner-using-gemini.vercel.app/" target="_blank" class="project-link-btn">
-        Live Demo ↗
-      </a>
-      
-      <a href="https://github.com/your-username/AI-Study-Planner-using-gemini-main" target="_blank" class="project-link-btn ghost">
-        GitHub →
-      </a>
-    </div>
-  </div>
-</div>
-      
-      <div class="project-card">
+      <!-- AuthForge — flagship, in progress -->
+      <div class="project-card project-card--featured">
         <div class="project-header">
-          <span class="project-num">02 / Computer Vision</span>
-          <span class="project-icon">🐂</span>
+          <span class="project-num">main ↳ feat/auth-api</span>
+          <span class="project-icon">🔐</span>
         </div>
         <div class="project-body">
-          <div class="project-title" style="display: flex; justify-content: space-between; align-items: center;">
-            PashuNet-AI
-            <button onclick="toggleAI(this, 'pashunet')" style="background: none; border: 1px solid var(--gold-dim); color: var(--gold); font-family: 'DM Mono'; font-size: 0.6rem; padding: 0.3rem 0.6rem; cursor: pointer; border-radius: 2px;">🤖 Simplify</button>
+          <div class="project-title">
+            AuthForge
+            <span class="wip-badge">In Development</span>
           </div>
-          <p class="project-desc" id="desc-pashunet-tech">
-            Engineered an image classification system utilizing deep learning to accurately identify and categorize various cattle and buffalo breeds based on visual inputs.
-          </p>
-          <p class="project-desc" id="desc-pashunet-simple" style="display: none; color: var(--white);">
-            <em>AI Summary:</em> An app that looks at a photo of a cow or buffalo and instantly tells you exactly what breed it is.
+          <p class="project-desc">
+            Production-grade authentication API built with TypeScript, Express, PostgreSQL, and Prisma —
+            covering JWT rotation, RBAC, OAuth2, 2FA, and rate limiting across a six-phase build roadmap.
+            Phase 1 is live: schema, auth flows, and Docker-based local Postgres are fully wired up.
           </p>
           <div class="project-stack">
-            <span class="stack-tag">Python</span>
-            <span class="stack-tag">Deep Learning</span>
-            <span class="stack-tag">Image Classification</span>
-            <span class="stack-tag">CNN</span>
-            <span class="stack-tag">Computer Vision</span>
+            <span class="stack-tag">TypeScript</span><span class="stack-tag">Express</span>
+            <span class="stack-tag">PostgreSQL</span><span class="stack-tag">Prisma</span>
+            <span class="stack-tag">Docker</span><span class="stack-tag">JWT</span>
           </div>
           <div class="project-links">
-            <a href="https://github.com/ali0786mehdi/pashunet-ai" target="_blank" class="project-link-btn">
-              GitHub →
-            </a>
+            <a href="https://github.com/ali0786mehdi/authforge" target="_blank" class="project-link-btn">GitHub →</a>
           </div>
         </div>
       </div>
 
-      <!-- Updated Open Source Contributions for SSoC 2026 -->
       <div class="project-card">
         <div class="project-header">
-          <span class="project-num">03 / SSoC '26 Open Source</span>
+          <span class="project-num">main ↳ feat/study-planner</span>
+          <span class="project-icon">🧠</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">AI-Powered Study Planner</div>
+          <p class="project-desc">
+            Full-stack MERN application where users enter their exam date and
+            subjects — Gemini AI generates a personalised day-by-day study schedule.
+            Features JWT authentication, personal dashboard, and progress tracking.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">React</span><span class="stack-tag">Node.js</span>
+            <span class="stack-tag">MongoDB</span><span class="stack-tag">Gemini API</span>
+            <span class="stack-tag">JWT Auth</span>
+          </div>
+          <div class="project-links">
+            <!-- NOTE: point this at your real live deployment URL -->
+            <a href="https://ai-study-planner-using-gemini.vercel.app/" target="_blank" class="project-link-btn">Live Demo ↗</a>
+            <!-- NOTE: replace with your actual repo path, this still says "your-username" -->
+            <a href="https://github.com/ali0786mehdi/ai-study-planner" target="_blank" class="project-link-btn ghost">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-num">main ↳ feat/cnn-classifier</span>
+          <span class="project-icon">🐂</span>
+        </div>
+        <div class="project-body">
+          <div class="project-title">
+            PashuNet-AI
+            <button class="simplify-btn" data-target="pashunet">🤖 Simplify</button>
+          </div>
+          <p class="project-desc" id="desc-pashunet-tech">
+            Engineered an image classification system utilizing deep learning to accurately identify and categorize various cattle and buffalo breeds based on visual inputs.
+          </p>
+          <p class="project-desc project-desc--simple" id="desc-pashunet-simple">
+            <em>Plain English:</em> an app that looks at a photo of a cow or buffalo and instantly tells you the breed.
+          </p>
+          <div class="project-stack">
+            <span class="stack-tag">Python</span><span class="stack-tag">Deep Learning</span>
+            <span class="stack-tag">CNN</span><span class="stack-tag">Computer Vision</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/ali0786mehdi/pashunet-ai" target="_blank" class="project-link-btn">GitHub →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-header">
+          <span class="project-num">contrib ↳ ssoc-2026</span>
           <span class="project-icon">🔧</span>
         </div>
         <div class="project-body">
           <div class="project-title">Social Summer of Code Contributions</div>
           <p class="project-desc">
-            Core contributor during SSoC 2026. Engineered optimized algorithmic solutions for <strong>Algo-Infinity-Verse</strong> and developed intelligent automation workflows for <strong>AI-Agent-Automation</strong>. Demonstrated strong version control, structured code review, and high-impact collaborative software engineering.
+            Core contributor during SSoC 2026. Engineered optimized algorithmic solutions for <strong>Algo-Infinity-Verse</strong> and developed intelligent automation workflows for <strong>AI-Agent-Automation</strong>.
           </p>
           <div class="project-stack">
-            <span class="stack-tag">Python</span>
-            <span class="stack-tag">AI Automation</span>
-            <span class="stack-tag">Algorithms</span>
-            <span class="stack-tag">CI/CD</span>
-            <span class="stack-tag">Git</span>
+            <span class="stack-tag">Python</span><span class="stack-tag">Algorithms</span>
+            <span class="stack-tag">CI/CD</span><span class="stack-tag">Git</span>
           </div>
-          <div class="project-links" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-            <a href="https://github.com/Eshajha19/Algo-Infinity-Verse" target="_blank" class="project-link-btn">
-              Algo-Infinity-Verse ↗
-            </a>
-            <a href="https://github.com/vmDeshpande/ai-agent-automation" target="_blank" class="project-link-btn ghost">
-              AI-Agent-Automation ↗
-            </a>
+          <div class="project-links">
+            <a href="https://github.com/Eshajha19/Algo-Infinity-Verse" target="_blank" class="project-link-btn">Algo-Infinity-Verse ↗</a>
+            <a href="https://github.com/vmDeshpande/ai-agent-automation" target="_blank" class="project-link-btn ghost">AI-Agent-Automation ↗</a>
           </div>
         </div>
       </div>
 
     </div>
   </section>
-    <!-- TESTIMONIAL -->
-<section id="testimonial">
-  <div class="section-label" data-animate-left>Kind Words</div>
-  <h2 data-animate>What people<br/>have said</h2>
-  <div class="testimonial-card">
-    <div class="testimonial-quote">"</div>
-    <p class="testimonial-text">
-      Ali single-handedly managed and delivered mathematics classes across multiple 
-      boards and grade levels with remarkable consistency. His ability to simplify 
-      complex concepts, keep students engaged, and maintain structured lesson plans 
-      far exceeded what we expected from someone his age. He brought both discipline 
-      and genuine care to every session — a rare combination.
-    </p>
-    <div class="testimonial-author">
-      <div class="testimonial-name">Head, Excellent-Avon Group Tuitions</div>
-      <div class="testimonial-role">Mumbai, Maharashtra</div>
+
+  <!-- TESTIMONIAL -->
+  <section id="testimonial">
+    <div class="section-label" data-animate-left>Kind Words</div>
+    <h2 data-animate>What people<br/>have said</h2>
+    <div class="testimonial-card">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">
+        Ali single-handedly managed and delivered mathematics classes across multiple
+        boards and grade levels with remarkable consistency. His ability to simplify
+        complex concepts, keep students engaged, and maintain structured lesson plans
+        far exceeded what we expected from someone his age. He brought both discipline
+        and genuine care to every session — a rare combination.
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-name">Head, Excellent-Avon Group Tuitions</div>
+        <div class="testimonial-role">Mumbai, Maharashtra</div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+
   <!-- VENTURES -->
   <section id="ventures">
     <div class="section-label" data-animate-left>Entrepreneurship</div>
     <h2 data-animate>Beyond<br/>the screen</h2>
-   <div class="venture-card">
-  <div>
-    <div class="venture-title">Mirza Footwear</div>
-    <p class="venture-desc">
-      Designed and developed the complete digital storefront for a family 
-      leather shoe business — product showcase, brand identity, and contact 
-      flow. Sole developer responsible for design, implementation, and deployment.
-    </p>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:1rem;align-items:flex-end;">
-    <div class="venture-badge">Solo Developer</div>
-    <a href="YOUR_MIRZA_FOOTWEAR_URL" target="_blank" class="project-link-btn ghost" style="white-space:nowrap;">
-      View Site ↗
-    </a>
-  </div>
-</div>
+    <div class="venture-card">
+      <div>
+        <div class="venture-title">Mirza Footwear</div>
+        <p class="venture-desc">
+          Designed and developed the complete digital storefront for a family
+          leather shoe business — product showcase, brand identity, and contact
+          flow. Sole developer responsible for design, implementation, and deployment.
+        </p>
+      </div>
+      <div class="venture-side">
+        <div class="venture-badge">Solo Developer</div>
+        <!-- NOTE: swap in your real Mirza Footwear site URL -->
+        <a href="#" target="_blank" class="project-link-btn ghost">View Site ↗</a>
+      </div>
+    </div>
   </section>
 
   <!-- CONNECT -->
@@ -464,24 +431,12 @@
     <h2 data-animate>Let's build<br/>something together</h2>
     <p>Open to software developer internships, full-stack roles, and collaborations — remote or in Mumbai.</p>
 
-    <div style="display:flex;justify-content:center;gap:2.5rem;margin-bottom:2.5rem;flex-wrap:wrap;">
-      <span style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.08em;">
-        📞 <a href="tel:+918953019234" style="color:var(--gold);text-decoration:none;">+91 89530 19234</a>
-      </span>
-      <span style="font-family:'DM Mono',monospace;font-size:0.75rem;color:var(--muted);letter-spacing:0.08em; display: flex; align-items: center; gap: 0.5rem;">
-        ✉️ <button onclick="copyEmail(this)" style="background:none; border:none; color:var(--gold); font-family:inherit; font-size:inherit; cursor:none; padding:0;">alimehdimirza1010@gmail.com</button>
-      </span>
+    <div class="connect-quicklinks">
+      <span class="connect-item">📞 <a href="tel:+918953019234">+91 89530 19234</a></span>
+      <span class="connect-item">✉️ <button id="copy-email-btn" class="email-btn">alimehdimirza1010@gmail.com</button></span>
     </div>
 
-    <!-- ✅ FORMSPREE CONTACT FORM -->
-    <!-- IMPORTANT: Replace YOUR_FORM_ID below with your actual Formspree form ID -->
-    <!-- Get it free at https://formspree.io → New Form → copy the ID from the action URL -->
-    <form
-      id="contact-form"
-      action="https://formspree.io/f/xbdwnqqy"
-      method="POST"
-      class="contact-form"
-    >
+    <form id="contact-form" action="https://formspree.io/f/xbdwnqqy" method="POST" class="contact-form">
       <div class="form-row">
         <div class="form-group">
           <label for="name">Your Name</label>
@@ -507,13 +462,8 @@
         </button>
         <p class="form-note">Usually reply within 24 hours.</p>
       </div>
-      <!-- Success & Error messages -->
-      <div id="form-success" class="form-message form-success" style="display:none;">
-        ✓ Message sent! I'll get back to you soon.
-      </div>
-      <div id="form-error" class="form-message form-error" style="display:none;">
-        Something went wrong. Please email me directly at alimehdimirza1010@gmail.com
-      </div>
+      <div id="form-success" class="form-message form-success">✓ Message sent! I'll get back to you soon.</div>
+      <div id="form-error" class="form-message form-error">Something went wrong. Please email me directly at alimehdimirza1010@gmail.com</div>
     </form>
 
     <div class="social-links">
@@ -532,14 +482,10 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
- <footer>
-  <span>© 2026 Ali Mehdi Mirza</span>
-  <span style="display:flex;align-items:center;gap:0.75rem;">
-    <img src="https://visitor-badge.laobi.icu/badge?page_id=ali0786mehdi.portfolio&left_color=%230a0a0b&right_color=%23c9a84c&left_text=Visitors" alt="visitor count" style="height:18px;border-radius:2px;" />
-  </span>
-  <span>Mumbai, Maharashtra · Open to Remote</span>
-</footer>
+  <footer>
+    <span>© 2026 Ali Mehdi Mirza</span>
+    <span>Mumbai, Maharashtra · Open to Remote</span>
+  </footer>
 
   <script src="script.js"></script>
 </body>
