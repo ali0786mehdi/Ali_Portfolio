@@ -2,20 +2,6 @@
  * Ali Mehdi Mirza — Portfolio
  * script.js
  *
- * This is your original script, kept behaviour-identical (same text,
- * same timings, same class names) with defensive null-checks added
- * so a missing element on one page/section can't throw and kill every
- * script below it. Each section below documents what it does and why.
- *
- * IMPORTANT: this file is NOT wrapped in an IIFE. toggleAI() and
- * copyEmail() are called via inline onclick="" attributes in index.html,
- * which can only see functions declared in the global scope. If you
- * ever refactor this to an IIFE or ES module, you must switch those
- * onclick attributes to addEventListener calls, or the buttons will
- * silently do nothing (browser console will show
- * "toggleAI is not defined").
- */
-
 // ==========================================
 // 1. PROJECT TOGGLE (AI vs Technical)
 // ==========================================
