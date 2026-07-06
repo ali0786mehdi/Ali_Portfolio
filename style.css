@@ -20,7 +20,7 @@
   z-index: 9999;
   transition: width 0.1s ease;
 }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--gold-dim) var(--bg); }
 
 body {
   background: var(--bg);
