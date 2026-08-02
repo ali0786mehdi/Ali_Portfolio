@@ -26,11 +26,11 @@
 
 ---
 
-## Currently Building — AuthForge
+## Currently Building — Bitly
 
 This portfolio is the shop window. The workbench is here:
 
-**[AuthForge →](https://github.com/ali0786mehdi/authforge)** — a production-grade authentication API in TypeScript, Express, PostgreSQL, and Prisma: JWT rotation, RBAC, OAuth2, 2FA, and rate limiting, built in six phases. Phase 1 (schema, auth flows, Dockerized local Postgres) is shipped.
+**[Bitly →](https://github.com/ali0786mehdi/Bitly)** — a URL shortner
 
 If you're evaluating me for a backend or systems role, that repo is a more honest signal than this one. This README documents the portfolio; AuthForge documents how I think about auth, data modeling, and API design.
 
