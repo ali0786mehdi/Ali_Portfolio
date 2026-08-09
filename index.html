@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-  <title>Ali Mehdi Mirza — Full Stack Developer & AI Enthusiast | Mumbai</title>
-  <meta name="description" content="Ali Mehdi Mirza is a Computer Engineering student at VIT Mumbai with a CGPA of 9.95. Full-stack MERN developer, AI/ML enthusiast, and open source contributor. Open to software developer internships." />
-  <meta name="keywords" content="Ali Mehdi Mirza, full stack developer Mumbai, MERN stack developer, software developer intern, VIT Mumbai, React developer, Node.js developer, AI ML developer Mumbai, Social Summer of Code, SSoC 2026" />
+  <title>AliOS — Ali Mehdi Mirza | Full Stack Developer & AI Enthusiast</title>
+  <meta name="description" content="AliOS — an operating-system-styled portfolio for Ali Mehdi Mirza. Computer Engineering student at VIT Mumbai, CGPA 9.95. Full-stack MERN developer, AI/ML enthusiast, open source contributor. Open to software developer internships." />
+  <meta name="keywords" content="Ali Mehdi Mirza, AliOS, full stack developer Mumbai, MERN stack developer, software developer intern, VIT Mumbai, React developer, Node.js developer, AI ML developer Mumbai, Social Summer of Code, SSoC 2026" />
   <meta name="author" content="Ali Mehdi Mirza" />
   <link rel="canonical" href="https://ali0786mehdi.github.io/Ali_Portfolio/" />
   <link rel="icon" type="image/png" href="/favicon-96x96.png" />
-  <meta name="theme-color" content="#0a0a0b" />
+  <meta name="theme-color" content="#0a0a0d" />
 
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://ali0786mehdi.github.io/Ali_Portfolio/" />
-  <meta property="og:title" content="Ali Mehdi Mirza — Full Stack Developer & AI Enthusiast" />
-  <meta property="og:description" content="Computer Engineering student at VIT Mumbai with CGPA 9.95. Building full-stack and AI-powered applications. Open to software developer internships." />
+  <meta property="og:title" content="AliOS — Ali Mehdi Mirza | Full Stack Developer" />
+  <meta property="og:description" content="An operating-system-styled portfolio. Computer Engineering student at VIT Mumbai, CGPA 9.95. Building full-stack and AI-powered applications." />
   <meta property="og:image" content="https://ali0786mehdi.github.io/Ali_Portfolio/Portfolioali.png" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ali Mehdi Mirza — Full Stack Developer" />
-  <meta name="twitter:description" content="MERN stack developer and AI enthusiast. CGPA 9.95. Open to software developer internships in Mumbai or remote." />
+  <meta name="twitter:title" content="AliOS — Ali Mehdi Mirza" />
+  <meta name="twitter:description" content="MERN stack developer and AI enthusiast, presented as a desktop OS. CGPA 9.95. Open to software developer internships." />
   <meta name="twitter:image" content="https://ali0786mehdi.github.io/Ali_Portfolio/Portfolioali.png" />
 
   <script type="application/ld+json">
@@ -44,335 +44,650 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Space+Grotesk:wght@400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <!-- PHASE 2 will fill this file in -->
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-theme="dark" data-booted="false">
 
+  <!-- ============================================================
+       BOOT SCREEN — shown on first load, hidden by script.js
+       once the boot sequence finishes (or is skipped on repeat visits)
+  ============================================================= -->
+  <div id="boot-screen" class="boot-screen" aria-hidden="false">
+    <div class="boot-logo">
+      <span class="boot-logo-mark">A//</span>
+      <span class="boot-logo-text">AliOS</span>
+    </div>
+    <div class="boot-progress">
+      <div class="boot-progress-track">
+        <div class="boot-progress-fill" id="boot-progress-fill"></div>
+      </div>
+      <div class="boot-status" id="boot-status">Loading kernel…</div>
+    </div>
+    <button id="boot-skip" class="boot-skip" type="button">Skip intro →</button>
+  </div>
+
+  <!-- ============================================================
+       CUSTOM CURSOR (kept from v1, reused inside AliOS chrome)
+  ============================================================= -->
   <div class="cursor" id="cursor" aria-hidden="true"></div>
   <div class="cursor-ring" id="cursorRing" aria-hidden="true"></div>
-  <div id="progress-bar"></div>
 
-  <nav id="navbar">
-    <div class="nav-logo">AMM</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#connect">Connect</a></li>
-    </ul>
-    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark mode">
-      <svg id="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      <svg id="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-    <!-- NOTE: rename this file (no spaces/parens) and update the href -->
-    <a href="AMM_Resume_internship%20(1).pdf" target="_blank" rel="noopener noreferrer" class="nav-resume-btn">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Resume
-    </a>
-  </nav>
+  <!-- ============================================================
+       DESKTOP — the main "OS" viewport
+  ============================================================= -->
+  <div id="desktop" class="desktop" data-wallpaper="nebula">
 
-  <section class="hero" id="hero">
-    <div class="hero-grid-bg" aria-hidden="true"></div>
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-wrapper">
-      <div class="hero-content">
-        <div class="hero-eyebrow" id="smart-greeting">Mumbai, Maharashtra · Open to Remote</div>
-        <h1>Ali Mehdi<br/><em>Mirza</em></h1>
-        <p class="hero-subtitle">
-          Engineer-in-training. Full-stack developer.
-          AI enthusiast. Building at the intersection
-          of code and curiosity.
-        </p>
-        <div class="hero-tags">
-          <span class="tag active">MERN Stack</span>
-          <span class="tag active">Backend & Auth</span>
-          <span class="tag">AI / ML</span>
-          <span class="tag">DSA</span>
-          <span class="tag">Open Source</span>
-          <span class="tag">Entrepreneur</span>
-        </div>
-        <div class="currently-building">
-          <span class="pulse-dot" aria-hidden="true"></span>
-          Currently building — AuthForge · Auth API · TypeScript + Prisma
-        </div>
-        <div class="hero-cta">
-          <a href="#projects" class="btn-primary">View Projects</a>
-          <a href="#connect" class="btn-ghost">Get in touch →</a>
-        </div>
-      </div>
-      <div class="hero-photo-wrapper">
-        <div class="hero-photo-ring"></div>
-        <img src="profile.jpeg" alt="Ali Mehdi Mirza — Full Stack Developer" class="hero-photo" width="300" height="300" loading="eager" onerror="this.parentElement.style.display='none'" />
-      </div>
-    </div>
-  </section>
+    <!-- Desktop background layers, swapped by the wallpaper picker -->
+    <div class="desktop-bg" aria-hidden="true"></div>
+    <div class="desktop-bg-grid" aria-hidden="true"></div>
+    <div class="desktop-bg-glow" aria-hidden="true"></div>
 
-  <section id="about">
-    <div class="section-label" data-animate-left>About</div>
-    <h2 data-animate>Code, build,<br/>ship, repeat</h2>
-    <div class="about-grid" data-animate>
-      <div class="about-text">
-        <p>I'm a <strong>Computer Engineering student at Vidyalankar Institute of Technology</strong>, Mumbai — pursuing my Bachelor's with a CGPA of 9.95 while actively building full-stack and AI-powered applications.</p>
-        <p>My technical toolkit spans the <strong>MERN stack, TypeScript, Python, and the Gemini API</strong>. I believe in learning by building — from production-ready backend systems to open-source contributions, every project sharpens both skill and perspective.</p>
-        <p>I also run a small business and contributed to AI model training at Outlier AI — experiences that sharpened how I think about products, users, and real-world systems.</p>
-      </div>
-      <div class="github-stats">
-        <img src="https://github-readme-streak-stats.herokuapp.com?user=ali0786mehdi&theme=dark&hide_border=true&background=0a0a0b&ring=c9a84c&fire=c9a84c&currStreakLabel=c9a84c&sideLabels=c9a84c&dates=6b6b7a&sideNums=f8f6f1" alt="GitHub Streak Stats — Ali Mehdi Mirza" width="480" height="195" loading="lazy" onerror="this.style.display='none'" style="width:100%;max-width:480px;border-radius:4px;display:block;margin-bottom:2rem;"/>
-      </div>
-      <div class="stat-grid">
-        <div class="stat-box"><div class="stat-num">9.56</div><div class="stat-desc">CGPA / 10</div></div>
-        <div class="stat-box"><div class="stat-num">4+</div><div class="stat-desc">Projects Shipped</div></div>
-        <div class="stat-box"><div class="stat-num">5+</div><div class="stat-desc">Tech Stacks</div></div>
-        <div class="stat-box"><div class="stat-num">∞</div><div class="stat-desc">Curiosity</div></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="experience" class="experience">
-    <div class="section-label" data-animate-left>Experience</div>
-    <h2 data-animate>Where I've<br/>contributed</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">Summer 2026</div>
-        <div class="timeline-role">Open Source Contributor</div>
-        <div class="timeline-company">Social Summer of Code (SSoC) 2026</div>
-        <p class="timeline-desc">Selected for the highly competitive Social Summer of Code 2026 program. Engineered algorithmic enhancements and AI-driven automation pipelines for <strong>Algo-Infinity-Verse</strong> and <strong>AI-Agent-Automation</strong>. Collaborated with a global community to optimize code efficiency and merge production-ready pull requests.</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">May 2025 – Jul 2025</div>
-        <div class="timeline-role">Freelance AI Trainer</div>
-        <div class="timeline-company">Outlier AI · Remote</div>
-        <p class="timeline-desc">Trained and evaluated large language models through data annotation, prompt engineering, and response quality rating — contributing to LLM reliability improvements across production AI systems.</p>
-      </div>
-      <div class="timeline-item">
-        <div class="timeline-dot"></div>
-        <div class="timeline-date">Ongoing</div>
-        <div class="timeline-role">B.Tech, Computer Engineering</div>
-        <div class="timeline-company">Vidyalankar Institute of Technology · Mumbai</div>
-        <p class="timeline-desc">Pursuing Computer Engineering with a CGPA of 9.95/10. Coursework spanning data structures, algorithms, computer graphics, database systems, and full-stack web development.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="skills">
-    <div class="section-label" data-animate-left>Skills</div>
-    <h2 data-animate>Tools of<br/>the trade</h2>
-    <div class="skills-layout">
-      <div class="skill-card">
-        <div class="skill-icon">🌐</div>
-        <div class="skill-title">Web Development</div>
-        <div class="skill-items"><span class="skill-pill">MongoDB</span><span class="skill-pill">Express.js</span><span class="skill-pill">React</span><span class="skill-pill">Node.js</span><span class="skill-pill">REST APIs</span></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🔐</div>
-        <div class="skill-title">Backend & Auth</div>
-        <div class="skill-items"><span class="skill-pill">TypeScript</span><span class="skill-pill">Prisma</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">JWT / OAuth2</span></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🐍</div>
-        <div class="skill-title">Programming</div>
-        <div class="skill-items"><span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">DSA</span><span class="skill-pill">OOP</span></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🚀</div>
-        <div class="skill-title">Deployment</div>
-        <div class="skill-items"><span class="skill-pill">Docker</span><span class="skill-pill">Vercel</span><span class="skill-pill">Render</span><span class="skill-pill">Railway</span></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🤖</div>
-        <div class="skill-title">AI / ML</div>
-        <div class="skill-items"><span class="skill-pill">Gemini API</span><span class="skill-pill">Deep Learning</span><span class="skill-pill">CNN</span><span class="skill-pill">Image Classification</span></div>
-      </div>
-      <div class="skill-card">
-        <div class="skill-icon">🗄️</div>
-        <div class="skill-title">Databases</div>
-        <div class="skill-items"><span class="skill-pill">PostgreSQL</span><span class="skill-pill">MongoDB</span><span class="skill-pill">MySQL</span><span class="skill-pill">Mongoose</span></div>
-      </div>
-    </div>
-    <div class="leetcode-stats">
-      <div class="section-label" style="margin-top:3rem;">DSA Progress</div>
-      <img src="https://leetcard.jacoblin.cool/Ali_mehdi_mirza?theme=dark&font=Poppins&ext=contest&border=0&radius=4" alt="LeetCode Stats — Ali Mehdi Mirza" width="500" height="200" loading="lazy" onerror="this.style.display='none'" style="margin-top:1.5rem;width:100%;max-width:500px;border-radius:4px;display:block;"/>
-    </div>
-  </section>
-
-  <section id="projects" class="projects">
-    <div class="section-label" data-animate-left>Projects</div>
-    <h2 data-animate>Things I've<br/>built</h2>
-    <div class="projects-grid">
-
-      <div class="project-card project-card--featured">
-        <div class="project-header">
-          <span class="project-num">01 / Backend · Auth</span>
-          <span class="project-icon">🔐</span>
-        </div>
-        <div class="project-body">
-          <div class="project-title">AuthForge <span class="wip-badge">In Development</span></div>
-          <p class="project-desc">Production-grade authentication API built with TypeScript, Express, PostgreSQL, and Prisma — covering JWT rotation, RBAC, OAuth2, 2FA, and rate limiting across a six-phase build roadmap. Phase 1 is live: schema, auth flows, and Docker-based local Postgres are fully wired up.</p>
-          <div class="project-stack">
-            <span class="stack-tag">TypeScript</span><span class="stack-tag">Express</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Prisma</span><span class="stack-tag">Docker</span><span class="stack-tag">JWT</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/ali0786mehdi/authforge" target="_blank" rel="noopener noreferrer" class="project-link-btn">GitHub →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-  <div class="project-header">
-    <span class="project-num">02 / Distributed Systems & WebSockets</span>
-    <span class="project-icon"> 🧑‍💻 </span>
-  </div>
-  <div class="project-body">
-    <div class="project-title">
-      Nexora
-      <button class="simplify-btn" onclick="toggleAI(this, 'nexora')">🤖 Simplify</button>
-      <span class="wip-badge">In Development</span>
-    </div>
-    <p class="project-desc" id="desc-nexora-tech">Engineered an event-driven, production-grade real-time chat platform utilizing WebSocket scaling via Redis Pub/Sub, a hybrid database architecture (PostgreSQL & MongoDB), and async BullMQ queues.</p>
-    <p class="project-desc project-desc--simple" id="desc-nexora-simple"><em>Plain English:</em> a high-speed chat app (like Slack) built to deliver instant messages, handle thousands of live connections, and send background alerts without freezing up.</p>
-    <div class="project-stack">
-      <span class="stack-tag">Node.js</span><span class="stack-tag">TypeScript</span><span class="stack-tag">Socket.io</span><span class="stack-tag">Redis</span><span class="stack-tag">MongoDB</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">BullMQ</span>
-    </div>
-    <div class="project-links">
-      <a href="https://github.com/ali0786mehdi/nexora" target="_blank" rel="noopener noreferrer" class="project-link-btn">GitHub →</a>
-    </div>
-  </div>
-</div>
-      
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-num">03 / Full-Stack · AI</span>
-          <span class="project-icon">🧠</span>
-        </div>
-        <div class="project-body">
-          <div class="project-title">AI-Powered Study Planner</div>
-          <p class="project-desc">Full-stack MERN application where users enter their exam date and subjects — Gemini AI generates a personalised day-by-day study schedule. Features JWT authentication, personal dashboard, and progress tracking.</p>
-          <div class="project-stack">
-            <span class="stack-tag">React</span><span class="stack-tag">Node.js</span><span class="stack-tag">MongoDB</span><span class="stack-tag">Gemini API</span><span class="stack-tag">JWT Auth</span>
-          </div>
-          <div class="project-links">
-            <a href="https://ai-study-planner-using-gemini.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link-btn">Live Demo ↗</a>
-            <!-- NOTE: replace with your real repo path -->
-            <a href="https://github.com/ali0786mehdi/ai-study-planner" target="_blank" rel="noopener noreferrer" class="project-link-btn ghost">GitHub →</a>
-          </div>
-        </div>
-      </div>
-
-      <div class="project-card">
-        <div class="project-header">
-          <span class="project-num">04 / SSoC '26 Open Source</span>
-          <span class="project-icon">🔧</span>
-        </div>
-        <div class="project-body">
-          <div class="project-title">Social Summer of Code Contributions</div>
-          <p class="project-desc">Core contributor during SSoC 2026. Engineered optimized algorithmic solutions for <strong>Algo-Infinity-Verse</strong> and developed intelligent automation workflows for <strong>AI-Agent-Automation</strong>. Demonstrated strong version control, structured code review, and high-impact collaborative software engineering.</p>
-          <div class="project-stack">
-            <span class="stack-tag">Python</span><span class="stack-tag">AI Automation</span><span class="stack-tag">Algorithms</span><span class="stack-tag">CI/CD</span><span class="stack-tag">Git</span>
-          </div>
-          <div class="project-links">
-            <a href="https://github.com/Eshajha19/Algo-Infinity-Verse" target="_blank" rel="noopener noreferrer" class="project-link-btn">Algo-Infinity-Verse ↗</a>
-            <a href="https://github.com/vmDeshpande/ai-agent-automation" target="_blank" rel="noopener noreferrer" class="project-link-btn ghost">AI-Agent-Automation ↗</a>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="testimonial">
-    <div class="section-label" data-animate-left>Kind Words</div>
-    <h2 data-animate>What people<br/>have said</h2>
-    <div class="testimonial-card">
-      <div class="testimonial-quote">"</div>
-      <p class="testimonial-text">Ali single-handedly managed and delivered mathematics classes across multiple boards and grade levels with remarkable consistency. His ability to simplify complex concepts, keep students engaged, and maintain structured lesson plans far exceeded what we expected from someone his age. He brought both discipline and genuine care to every session — a rare combination.</p>
-      <div class="testimonial-author">
-        <div class="testimonial-name">Head, Excellent-Avon Group Tuitions</div>
-        <div class="testimonial-role">Mumbai, Maharashtra</div>
-      </div>
-    </div>
-  </section>
-
-  <section id="ventures">
-    <div class="section-label" data-animate-left>Entrepreneurship</div>
-    <h2 data-animate>Beyond<br/>the screen</h2>
-    <div class="venture-card">
-      <div>
-        <div class="venture-title">Mirza Footwear</div>
-        <p class="venture-desc">Designed and developed the complete digital storefront for a family leather shoe business — product showcase, brand identity, and contact flow. Sole developer responsible for design, implementation, and deployment.</p>
-      </div>
-      <div class="venture-side">
-        <div class="venture-badge">Solo Developer</div>
-        <!-- NOTE: swap in your real Mirza Footwear site URL -->
-        <a href="#" target="_blank" rel="noopener noreferrer" class="project-link-btn ghost">View Site ↗</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="connect" class="connect">
-    <div class="section-label" data-animate-left>Connect</div>
-    <h2 data-animate>Let's build<br/>something together</h2>
-    <p>Open to software developer internships, full-stack roles, and collaborations — remote or in Mumbai.</p>
-
-    <div class="connect-quicklinks">
-      <span class="connect-item">📞 <a href="tel:+918953019234">+91 89530 19234</a></span>
-      <span class="connect-item">✉️ <button class="email-btn" onclick="copyEmail(this)">alimehdimirza1010@gmail.com</button></span>
-    </div>
-
-    <form id="contact-form" action="https://formspree.io/f/xbdwnqqy" method="POST" class="contact-form">
-      <div class="form-row">
-        <div class="form-group">
-          <label for="name">Your Name</label>
-          <input type="text" id="name" name="name" placeholder="Ravi Sharma" required />
-        </div>
-        <div class="form-group">
-          <label for="email">Email Address</label>
-          <input type="email" id="email" name="email" placeholder="ravi@company.com" required />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <input type="text" id="subject" name="subject" placeholder="Internship opportunity / Freelance project / Collaboration" />
-      </div>
-      <div class="form-group">
-        <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" placeholder="Tell me about the opportunity, project, or just say hello..." required></textarea>
-      </div>
-      <div class="form-footer">
-        <button type="submit" class="btn-primary form-submit" id="submit-btn">
-          <span id="submit-text">Send Message</span>
-          <svg id="submit-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    <!-- Top status bar: like a mac/phone status bar -->
+    <div class="status-bar" id="status-bar">
+      <div class="status-bar-left">
+        <button class="status-menu-btn" id="start-btn" type="button" aria-haspopup="true" aria-expanded="false">
+          <span class="start-logo">A//</span> AliOS
         </button>
-        <p class="form-note">Usually reply within 24 hours.</p>
+        <span class="status-bar-item status-bar-menu" data-window-target="about">About</span>
+        <span class="status-bar-item status-bar-menu" data-window-target="projects">Projects</span>
+        <span class="status-bar-item status-bar-menu" data-window-target="ai-assistant">AI Assistant</span>
       </div>
-      <div id="form-success" class="form-message form-success" style="display:none;">✓ Message sent! I'll get back to you soon.</div>
-      <div id="form-error" class="form-message form-error" style="display:none;">Something went wrong. Please email me directly at alimehdimirza1010@gmail.com</div>
-    </form>
-
-    <div class="social-links">
-      <a href="https://github.com/ali0786mehdi" target="_blank" rel="noopener noreferrer" class="social-link">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
-        GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/ali-mehdi-mirza-2ba8a624b/" target="_blank" rel="noopener noreferrer" class="social-link">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-      <a href="https://www.youtube.com/@AliMehdi1010" target="_blank" rel="noopener noreferrer" class="social-link">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-        YouTube
-      </a>
+      <div class="status-bar-right">
+        <span class="status-bar-item status-battery" id="status-battery" title="Focus level">🔋 100%</span>
+        <span class="status-bar-item status-wifi" title="Open to remote">📶 Open to Remote</span>
+        <button class="status-bar-item theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light/dark mode">🌙</button>
+        <span class="status-bar-item status-clock" id="status-clock">--:--</span>
+      </div>
     </div>
-  </section>
 
-  <footer>
-    <span>© 2026 Ali Mehdi Mirza</span>
-    <span>Mumbai, Maharashtra · Open to Remote</span>
-  </footer>
+    <!-- ==========================================================
+         DESKTOP ICONS — double-click / tap opens the matching window
+    =========================================================== -->
+    <div class="desktop-icons" id="desktop-icons">
+      <button class="desktop-icon" data-window-target="about" type="button">
+        <span class="desktop-icon-glyph">🧑‍💻</span>
+        <span class="desktop-icon-label">About.me</span>
+      </button>
+      <button class="desktop-icon" data-window-target="experience" type="button">
+        <span class="desktop-icon-glyph">🗂️</span>
+        <span class="desktop-icon-label">Experience</span>
+      </button>
+      <button class="desktop-icon" data-window-target="skills" type="button">
+        <span class="desktop-icon-glyph">🛠️</span>
+        <span class="desktop-icon-label">Skills.sys</span>
+      </button>
+      <button class="desktop-icon" data-window-target="projects" type="button">
+        <span class="desktop-icon-glyph">🚀</span>
+        <span class="desktop-icon-label">Projects</span>
+      </button>
+      <button class="desktop-icon" data-window-target="hobbies" type="button">
+        <span class="desktop-icon-glyph">🎧</span>
+        <span class="desktop-icon-label">Hobbies</span>
+      </button>
+      <button class="desktop-icon" data-window-target="ventures" type="button">
+        <span class="desktop-icon-glyph">👞</span>
+        <span class="desktop-icon-label">Ventures</span>
+      </button>
+      <button class="desktop-icon" data-window-target="ai-assistant" type="button">
+        <span class="desktop-icon-glyph">🤖</span>
+        <span class="desktop-icon-label">Ask Ali AI</span>
+      </button>
+      <button class="desktop-icon" data-window-target="terminal" type="button">
+        <span class="desktop-icon-glyph">▚</span>
+        <span class="desktop-icon-label">Terminal</span>
+      </button>
+      <button class="desktop-icon" data-window-target="contact" type="button">
+        <span class="desktop-icon-glyph">✉️</span>
+        <span class="desktop-icon-label">Contact</span>
+      </button>
+      <!-- NOTE: rename the resume file (no spaces/parens) and update the href -->
+      <a class="desktop-icon" href="AMM_Resume_internship%20(1).pdf" target="_blank" rel="noopener noreferrer">
+        <span class="desktop-icon-glyph">📄</span>
+        <span class="desktop-icon-label">Resume.pdf</span>
+      </a>
+      <button class="desktop-icon" data-window-target="trash" type="button">
+        <span class="desktop-icon-glyph">🗑️</span>
+        <span class="desktop-icon-label">Trash</span>
+      </button>
+    </div>
 
+    <!-- ==========================================================
+         START MENU — opened by #start-btn
+    =========================================================== -->
+    <div class="start-menu" id="start-menu" aria-hidden="true">
+      <div class="start-menu-header">
+        <img src="profile.jpeg" alt="Ali Mehdi Mirza" class="start-menu-avatar" onerror="this.style.display='none'" />
+        <div>
+          <div class="start-menu-name">Ali Mehdi Mirza</div>
+          <div class="start-menu-tag">Mumbai · Open to Remote</div>
+        </div>
+      </div>
+      <div class="start-menu-search">
+        <input type="text" id="start-menu-search-input" placeholder="Search AliOS…" autocomplete="off" />
+      </div>
+      <ul class="start-menu-list">
+        <li><button data-window-target="about" type="button"><span>🧑‍💻</span> About.me</button></li>
+        <li><button data-window-target="experience" type="button"><span>🗂️</span> Experience</button></li>
+        <li><button data-window-target="skills" type="button"><span>🛠️</span> Skills.sys</button></li>
+        <li><button data-window-target="projects" type="button"><span>🚀</span> Projects</button></li>
+        <li><button data-window-target="hobbies" type="button"><span>🎧</span> Hobbies</button></li>
+        <li><button data-window-target="ventures" type="button"><span>👞</span> Ventures</button></li>
+        <li><button data-window-target="ai-assistant" type="button"><span>🤖</span> Ask Ali AI</button></li>
+        <li><button data-window-target="terminal" type="button"><span>▚</span> Terminal</button></li>
+        <li><button data-window-target="contact" type="button"><span>✉️</span> Contact</button></li>
+      </ul>
+      <div class="start-menu-footer">
+        <button id="start-menu-theme" type="button">🌙 Toggle theme</button>
+        <button id="start-menu-restart" type="button">⟳ Replay boot</button>
+      </div>
+    </div>
+
+    <!-- ==========================================================
+         RIGHT-CLICK CONTEXT MENU (desktop background)
+    =========================================================== -->
+    <ul class="context-menu" id="context-menu" aria-hidden="true">
+      <li data-action="change-wallpaper">Change wallpaper</li>
+      <li data-action="toggle-theme">Toggle light / dark</li>
+      <li data-action="arrange-icons">Arrange icons</li>
+      <li data-action="about-alios">About AliOS…</li>
+    </ul>
+
+    <!-- ==========================================================
+         WINDOW: ABOUT
+    =========================================================== -->
+    <section class="app-window" id="window-about" data-app="about" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">About.me</div>
+      </div>
+      <div class="window-body">
+        <div class="about-window-grid">
+          <div class="about-photo-col">
+            <div class="about-photo-frame">
+              <img src="profile.jpeg" alt="Ali Mehdi Mirza" class="about-photo" onerror="this.parentElement.style.display='none'" />
+            </div>
+            <div class="about-quick-stats">
+              <div class="stat-box"><div class="stat-num">9.95</div><div class="stat-desc">CGPA / 10</div></div>
+              <div class="stat-box"><div class="stat-num">4+</div><div class="stat-desc">Projects Shipped</div></div>
+              <div class="stat-box"><div class="stat-num">5+</div><div class="stat-desc">Tech Stacks</div></div>
+              <div class="stat-box"><div class="stat-num">∞</div><div class="stat-desc">Curiosity</div></div>
+            </div>
+          </div>
+          <div class="about-text-col">
+            <p class="window-eyebrow">whoami</p>
+            <h2 class="window-heading">Ali Mehdi Mirza</h2>
+            <p>I'm a <strong>Computer Engineering student at Vidyalankar Institute of Technology</strong>, Mumbai — pursuing my Bachelor's with a CGPA of 9.95 while actively building full-stack and AI-powered applications.</p>
+            <p>My technical toolkit spans the <strong>MERN stack, TypeScript, Python, and the Gemini API</strong>. I believe in learning by building — from production-ready backend systems to open-source contributions, every project sharpens both skill and perspective.</p>
+            <p>I also run a small business and contributed to AI model training at Outlier AI — experiences that sharpened how I think about products, users, and real-world systems.</p>
+            <div class="about-tags">
+              <span class="tag active">MERN Stack</span>
+              <span class="tag active">Backend & Auth</span>
+              <span class="tag">AI / ML</span>
+              <span class="tag">DSA</span>
+              <span class="tag">Open Source</span>
+              <span class="tag">Entrepreneur</span>
+            </div>
+            <div class="currently-building">
+              <span class="pulse-dot" aria-hidden="true"></span>
+              Currently building — AuthForge · Auth API · TypeScript + Prisma
+            </div>
+            <div class="github-stats">
+              <img src="https://github-readme-streak-stats.herokuapp.com?user=ali0786mehdi&theme=dark&hide_border=true&background=0a0a0b&ring=c9a84c&fire=c9a84c&currStreakLabel=c9a84c&sideLabels=c9a84c&dates=6b6b7a&sideNums=f8f6f1" alt="GitHub Streak Stats — Ali Mehdi Mirza" loading="lazy" onerror="this.style.display='none'" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: EXPERIENCE
+    =========================================================== -->
+    <section class="app-window" id="window-experience" data-app="experience" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Experience — timeline.log</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">Where I've contributed</p>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Summer 2026</div>
+            <div class="timeline-role">Open Source Contributor</div>
+            <div class="timeline-company">Social Summer of Code (SSoC) 2026</div>
+            <p class="timeline-desc">Selected for the highly competitive Social Summer of Code 2026 program. Engineered algorithmic enhancements and AI-driven automation pipelines for <strong>Algo-Infinity-Verse</strong> and <strong>AI-Agent-Automation</strong>. Collaborated with a global community to optimize code efficiency and merge production-ready pull requests.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">May 2025 – Jul 2025</div>
+            <div class="timeline-role">Freelance AI Trainer</div>
+            <div class="timeline-company">Outlier AI · Remote</div>
+            <p class="timeline-desc">Trained and evaluated large language models through data annotation, prompt engineering, and response quality rating — contributing to LLM reliability improvements across production AI systems.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-date">Ongoing</div>
+            <div class="timeline-role">B.Tech, Computer Engineering</div>
+            <div class="timeline-company">Vidyalankar Institute of Technology · Mumbai</div>
+            <p class="timeline-desc">Pursuing Computer Engineering with a CGPA of 9.95/10. Coursework spanning data structures, algorithms, computer graphics, database systems, and full-stack web development.</p>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Ali single-handedly managed and delivered mathematics classes across multiple boards and grade levels with remarkable consistency. His ability to simplify complex concepts, keep students engaged, and maintain structured lesson plans far exceeded what we expected from someone his age. He brought both discipline and genuine care to every session — a rare combination.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-name">Head, Excellent-Avon Group Tuitions</div>
+            <div class="testimonial-role">Mumbai, Maharashtra</div>
+          </div>
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: SKILLS
+    =========================================================== -->
+    <section class="app-window" id="window-skills" data-app="skills" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Skills.sys — installed packages</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">Tools of the trade</p>
+        <div class="skills-layout">
+          <div class="skill-card">
+            <div class="skill-icon">🌐</div>
+            <div class="skill-title">Web Development</div>
+            <div class="skill-items"><span class="skill-pill">MongoDB</span><span class="skill-pill">Express.js</span><span class="skill-pill">React</span><span class="skill-pill">Node.js</span><span class="skill-pill">REST APIs</span></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🔐</div>
+            <div class="skill-title">Backend & Auth</div>
+            <div class="skill-items"><span class="skill-pill">TypeScript</span><span class="skill-pill">Prisma</span><span class="skill-pill">PostgreSQL</span><span class="skill-pill">JWT / OAuth2</span></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🐍</div>
+            <div class="skill-title">Programming</div>
+            <div class="skill-items"><span class="skill-pill">Python</span><span class="skill-pill">JavaScript</span><span class="skill-pill">DSA</span><span class="skill-pill">OOP</span></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🚀</div>
+            <div class="skill-title">Deployment</div>
+            <div class="skill-items"><span class="skill-pill">Docker</span><span class="skill-pill">Vercel</span><span class="skill-pill">Render</span><span class="skill-pill">Railway</span></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🤖</div>
+            <div class="skill-title">AI / ML</div>
+            <div class="skill-items"><span class="skill-pill">Gemini API</span><span class="skill-pill">Deep Learning</span><span class="skill-pill">CNN</span><span class="skill-pill">Image Classification</span></div>
+          </div>
+          <div class="skill-card">
+            <div class="skill-icon">🗄️</div>
+            <div class="skill-title">Databases</div>
+            <div class="skill-items"><span class="skill-pill">PostgreSQL</span><span class="skill-pill">MongoDB</span><span class="skill-pill">MySQL</span><span class="skill-pill">Mongoose</span></div>
+          </div>
+        </div>
+        <div class="leetcode-stats">
+          <div class="window-eyebrow" style="margin-top:2rem;">DSA Progress</div>
+          <img src="https://leetcard.jacoblin.cool/Ali_mehdi_mirza?theme=dark&font=Poppins&ext=contest&border=0&radius=4" alt="LeetCode Stats — Ali Mehdi Mirza" loading="lazy" onerror="this.style.display='none'" />
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: PROJECTS
+    =========================================================== -->
+    <section class="app-window app-window--wide" id="window-projects" data-app="projects" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Projects — /usr/local/ali/builds</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">Things I've built</p>
+        <div class="projects-grid">
+
+          <div class="project-card project-card--featured">
+            <div class="project-header">
+              <span class="project-num">Backend · Auth</span>
+              <span class="project-icon">🔐</span>
+            </div>
+            <div class="project-body">
+              <div class="project-title">AuthForge <span class="wip-badge">In Development</span></div>
+              <p class="project-desc">Production-grade authentication API built with TypeScript, Express, PostgreSQL, and Prisma — covering JWT rotation, RBAC, OAuth2, 2FA, and rate limiting across a six-phase build roadmap. Phase 1 is live: schema, auth flows, and Docker-based local Postgres are fully wired up.</p>
+              <div class="project-stack">
+                <span class="stack-tag">TypeScript</span><span class="stack-tag">Express</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">Prisma</span><span class="stack-tag">Docker</span><span class="stack-tag">JWT</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/ali0786mehdi/authforge" target="_blank" rel="noopener noreferrer" class="project-link-btn">GitHub →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <span class="project-num">Distributed Systems · WebSockets</span>
+              <span class="project-icon">🧑‍💻</span>
+            </div>
+            <div class="project-body">
+              <div class="project-title">
+                Nexora
+                <button class="simplify-btn" data-simplify-target="nexora" type="button">🤖 Simplify</button>
+                <span class="wip-badge">In Development</span>
+              </div>
+              <p class="project-desc" id="desc-nexora-tech">Engineered an event-driven, production-grade real-time chat platform utilizing WebSocket scaling via Redis Pub/Sub, a hybrid database architecture (PostgreSQL & MongoDB), and async BullMQ queues.</p>
+              <p class="project-desc project-desc--simple" id="desc-nexora-simple" hidden><em>Plain English:</em> a high-speed chat app (like Slack) built to deliver instant messages, handle thousands of live connections, and send background alerts without freezing up.</p>
+              <div class="project-stack">
+                <span class="stack-tag">Node.js</span><span class="stack-tag">TypeScript</span><span class="stack-tag">Socket.io</span><span class="stack-tag">Redis</span><span class="stack-tag">MongoDB</span><span class="stack-tag">PostgreSQL</span><span class="stack-tag">BullMQ</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/ali0786mehdi/nexora" target="_blank" rel="noopener noreferrer" class="project-link-btn">GitHub →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <span class="project-num">Full-Stack · AI</span>
+              <span class="project-icon">🧠</span>
+            </div>
+            <div class="project-body">
+              <div class="project-title">AI-Powered Study Planner</div>
+              <p class="project-desc">Full-stack MERN application where users enter their exam date and subjects — Gemini AI generates a personalised day-by-day study schedule. Features JWT authentication, personal dashboard, and progress tracking.</p>
+              <div class="project-stack">
+                <span class="stack-tag">React</span><span class="stack-tag">Node.js</span><span class="stack-tag">MongoDB</span><span class="stack-tag">Gemini API</span><span class="stack-tag">JWT Auth</span>
+              </div>
+              <div class="project-links">
+                <a href="https://ai-study-planner-using-gemini.vercel.app/" target="_blank" rel="noopener noreferrer" class="project-link-btn">Live Demo ↗</a>
+                <!-- NOTE: replace with your real repo path -->
+                <a href="https://github.com/ali0786mehdi/ai-study-planner" target="_blank" rel="noopener noreferrer" class="project-link-btn ghost">GitHub →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="project-card">
+            <div class="project-header">
+              <span class="project-num">SSoC '26 · Open Source</span>
+              <span class="project-icon">🔧</span>
+            </div>
+            <div class="project-body">
+              <div class="project-title">Social Summer of Code Contributions</div>
+              <p class="project-desc">Core contributor during SSoC 2026. Engineered optimized algorithmic solutions for <strong>Algo-Infinity-Verse</strong> and developed intelligent automation workflows for <strong>AI-Agent-Automation</strong>. Demonstrated strong version control, structured code review, and high-impact collaborative software engineering.</p>
+              <div class="project-stack">
+                <span class="stack-tag">Python</span><span class="stack-tag">AI Automation</span><span class="stack-tag">Algorithms</span><span class="stack-tag">CI/CD</span><span class="stack-tag">Git</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/Eshajha19/Algo-Infinity-Verse" target="_blank" rel="noopener noreferrer" class="project-link-btn">Algo-Infinity-Verse ↗</a>
+                <a href="https://github.com/vmDeshpande/ai-agent-automation" target="_blank" rel="noopener noreferrer" class="project-link-btn ghost">AI-Agent-Automation ↗</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: HOBBIES
+         (placeholder copy — swap in your real hobbies/interests)
+    =========================================================== -->
+    <section class="app-window" id="window-hobbies" data-app="hobbies" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Hobbies — off the clock</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">When I'm not shipping code</p>
+        <!-- TODO: replace these four placeholders with your real hobbies -->
+        <div class="hobby-grid">
+          <div class="hobby-card">
+            <div class="hobby-icon">♟️</div>
+            <div class="hobby-title">Chess</div>
+            <p class="hobby-desc">Casual rated games — I like the same pattern-recognition muscle chess and debugging share.</p>
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-icon">🎬</div>
+            <div class="hobby-title">Filming & Editing</div>
+            <p class="hobby-desc">Run a small YouTube channel — scripting, shooting, and editing tech and campus content.</p>
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-icon">📖</div>
+            <div class="hobby-title">Teaching Math</div>
+            <p class="hobby-desc">Tutor students across boards — breaking down hard concepts is a hobby that also pays the bills.</p>
+          </div>
+          <div class="hobby-card">
+            <div class="hobby-icon">🏋️</div>
+            <div class="hobby-title">Fitness</div>
+            <p class="hobby-desc">Strength training a few times a week — it's the closest thing I have to a reset button.</p>
+          </div>
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: VENTURES
+    =========================================================== -->
+    <section class="app-window" id="window-ventures" data-app="ventures" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Ventures — beyond the screen</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">Entrepreneurship</p>
+        <div class="venture-card">
+          <div>
+            <div class="venture-title">Mirza Footwear</div>
+            <p class="venture-desc">Designed and developed the complete digital storefront for a family leather shoe business — product showcase, brand identity, and contact flow. Sole developer responsible for design, implementation, and deployment.</p>
+          </div>
+          <div class="venture-side">
+            <div class="venture-badge">Solo Developer</div>
+            <!-- NOTE: swap in your real Mirza Footwear site URL -->
+            <a href="#" target="_blank" rel="noopener noreferrer" class="project-link-btn ghost">View Site ↗</a>
+          </div>
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: AI ASSISTANT ("Ask Ali AI")
+         Chat UI shell — wiring (LLM call) lands in Phase 3 JS.
+    =========================================================== -->
+    <section class="app-window app-window--ai" id="window-ai-assistant" data-app="ai-assistant" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Ask Ali AI — chat.exe</div>
+      </div>
+      <div class="window-body ai-chat-body">
+        <div class="ai-chat-log" id="ai-chat-log" aria-live="polite">
+          <div class="ai-chat-msg ai-chat-msg--bot">
+            <div class="ai-chat-avatar">🤖</div>
+            <div class="ai-chat-bubble">
+              Hey, I'm a small assistant trained on Ali's résumé. Ask me about his projects, stack, or availability — try
+              <button class="ai-suggestion-chip" data-suggestion="What has Ali built recently?" type="button">"What has Ali built recently?"</button>
+            </div>
+          </div>
+        </div>
+        <form class="ai-chat-input-row" id="ai-chat-form">
+          <input type="text" id="ai-chat-input" placeholder="Ask about Ali's stack, projects, availability…" autocomplete="off" />
+          <button type="submit" class="ai-chat-send" aria-label="Send">➤</button>
+        </form>
+        <p class="ai-chat-note">Answers are generated and may be imperfect — for anything important, use the Contact window.</p>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: TERMINAL (playful "resume as CLI" easter egg)
+    =========================================================== -->
+    <section class="app-window app-window--terminal" id="window-terminal" data-app="terminal" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">ali@portfolio: ~</div>
+      </div>
+      <div class="window-body terminal-body">
+        <div class="terminal-log" id="terminal-log">
+          <p>AliOS Terminal v1.0.0 — type <code>help</code> to see available commands.</p>
+        </div>
+        <div class="terminal-input-row">
+          <span class="terminal-prompt">ali@portfolio:~$</span>
+          <input type="text" id="terminal-input" class="terminal-input" autocomplete="off" spellcheck="false" />
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: CONTACT
+    =========================================================== -->
+    <section class="app-window" id="window-contact" data-app="contact" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Contact — new_message.eml</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">Let's build something together</p>
+        <p>Open to software developer internships, full-stack roles, and collaborations — remote or in Mumbai.</p>
+
+        <div class="connect-quicklinks">
+          <span class="connect-item">📞 <a href="tel:+918953019234">+91 89530 19234</a></span>
+          <span class="connect-item">✉️ <button class="email-btn" id="copy-email-btn" type="button">alimehdimirza1010@gmail.com</button></span>
+        </div>
+
+        <form id="contact-form" action="https://formspree.io/f/xbdwnqqy" method="POST" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Your Name</label>
+              <input type="text" id="name" name="name" placeholder="Ravi Sharma" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="ravi@company.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="Internship opportunity / Freelance project / Collaboration" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" placeholder="Tell me about the opportunity, project, or just say hello..." required></textarea>
+          </div>
+          <div class="form-footer">
+            <button type="submit" class="btn-primary form-submit" id="submit-btn">
+              <span id="submit-text">Send Message</span>
+              <svg id="submit-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            </button>
+            <p class="form-note">Usually reply within 24 hours.</p>
+          </div>
+          <div id="form-success" class="form-message form-success" style="display:none;">✓ Message sent! I'll get back to you soon.</div>
+          <div id="form-error" class="form-message form-error" style="display:none;">Something went wrong. Please email me directly at alimehdimirza1010@gmail.com</div>
+        </form>
+
+        <div class="social-links">
+          <a href="https://github.com/ali0786mehdi" target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/ali-mehdi-mirza-2ba8a624b/" target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+          <a href="https://www.youtube.com/@AliMehdi1010" target="_blank" rel="noopener noreferrer" class="social-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+            YouTube
+          </a>
+        </div>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         WINDOW: TRASH (easter egg — deleted "bugs")
+    =========================================================== -->
+    <section class="app-window app-window--small" id="window-trash" data-app="trash" data-open="false" aria-hidden="true">
+      <div class="window-titlebar" data-drag-handle>
+        <div class="window-traffic">
+          <button class="traffic close" data-action="close" aria-label="Close"></button>
+          <button class="traffic minimize" data-action="minimize" aria-label="Minimize"></button>
+          <button class="traffic maximize" data-action="maximize" aria-label="Maximize"></button>
+        </div>
+        <div class="window-title">Trash — 0 items recovered</div>
+      </div>
+      <div class="window-body">
+        <p class="window-eyebrow">Deleted</p>
+        <ul class="trash-list">
+          <li>console.log("why isn't this working")</li>
+          <li>my sleep schedule, Jan–Mar 2026</li>
+          <li>a genuinely believed 2-day time estimate</li>
+        </ul>
+      </div>
+      <div class="window-resize-handle" data-resize-handle aria-hidden="true"></div>
+    </section>
+
+    <!-- ==========================================================
+         TASKBAR / DOCK — shows open + pinned apps
+    =========================================================== -->
+    <div class="taskbar" id="taskbar">
+      <div class="taskbar-pinned" id="taskbar-pinned">
+        <button class="taskbar-app" data-window-target="about" type="button" title="About.me">🧑‍💻</button>
+        <button class="taskbar-app" data-window-target="projects" type="button" title="Projects">🚀</button>
+        <button class="taskbar-app" data-window-target="ai-assistant" type="button" title="Ask Ali AI">🤖</button>
+        <button class="taskbar-app" data-window-target="terminal" type="button" title="Terminal">▚</button>
+        <button class="taskbar-app" data-window-target="contact" type="button" title="Contact">✉️</button>
+      </div>
+      <div class="taskbar-open" id="taskbar-open" aria-live="polite">
+        <!-- populated dynamically by script.js as windows open/minimize -->
+      </div>
+    </div>
+
+  </div><!-- /#desktop -->
+
+  <!-- Toast / notification stack (used for form status, easter eggs, etc.) -->
+  <div class="toast-stack" id="toast-stack" aria-live="polite"></div>
+
+  <!-- PHASE 3 will fill this file in -->
   <script src="script.js"></script>
 </body>
 </html>
