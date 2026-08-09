@@ -4,18 +4,6 @@
 
   <p><em>A portfolio that works like a tiny operating system — windows you can open, drag, and close, a terminal you can type into, and a chat assistant that actually knows my resume. No framework, no build step, no dependencies.</em></p>
 
-  <a href="https://alimehdiport.netlify.app/" target="_blank" rel="noopener noreferrer">
-    <img src="https://img.shields.io/badge/Live-alimehdiport.netlify.app-c9a84c?style=for-the-badge&logoColor=white" />
-  </a>
-  &nbsp;
-  <img src="https://img.shields.io/badge/Stack-Vanilla_JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/Dependencies-Zero-c9a84c?style=for-the-badge" />
-  &nbsp;
-  <img src="https://img.shields.io/badge/Build_Step-None-6b6b7a?style=for-the-badge" />
-
-</div>
-
 ---
 
 ## Preview
