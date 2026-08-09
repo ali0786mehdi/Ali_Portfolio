@@ -1,19 +1,3 @@
-<div align="center">
-
-  <h1>AliOS — Ali Mehdi Mirza's Portfolio</h1>
-
-  <p><em>A portfolio that works like a tiny operating system — windows you can open, drag, and close, a terminal you can type into, and a chat assistant that actually knows my resume. No framework, no build step, no dependencies.</em></p>
-
----
-
-## Preview
-
-<div align="center">
-  <img src="./image.png" alt="Portfolio Preview" width="90%" />
-</div>
-
----
-
 ## What is AliOS?
 
 It's my portfolio, but instead of a normal scrolling page, it looks and behaves like a small desktop operating system.
