@@ -1,7 +1,7 @@
 ## What is AliOS?
 
 It's my portfolio, but instead of a normal scrolling page, it looks and behaves like a small desktop operating system.
-[Check out my live portfolio here](https://alimehdiport.netlify.app/)
+<a href="https://alimehdiport.netlify.app/" target="_blank">My Portfolio</a>
 - You boot into it (a short loading screen, skippable)
 - You see a desktop with icons: About, Experience, Skills, Projects, Hobbies, Ventures, Contact, and more
 - Clicking an icon opens a window — you can drag it around, resize it, minimize it, or close it
