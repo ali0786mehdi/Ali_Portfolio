@@ -317,12 +317,26 @@ code{ font-family: var(--font-mono); }
 .window-titlebar:active{ cursor: grabbing; }
 .window-traffic{ display:flex; gap: .45rem; }
 .traffic{
+  position: relative;
   width: 11px; height: 11px; border-radius: 50%; border: 1px solid var(--line-strong);
   background: transparent; transition: background var(--dur-fast), border-color var(--dur-fast);
+  padding: 0; cursor: pointer;
 }
+.traffic::before{
+  content: '';
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  font-family: var(--font-mono); font-size: 8px; line-height: 1; font-weight: 700;
+  color: var(--ink-faint); transition: color var(--dur-fast);
+  pointer-events: none;
+}
+.traffic.close::before{ content: '\00d7'; font-size: 9px; }
+.traffic.minimize::before{ content: '\2212'; }
+.traffic.maximize::before{ content: '\25a1'; font-size: 7px; }
+.app-window[data-maximized="true"] .traffic.maximize::before{ content: '\29c9'; font-size: 7px; }
 .traffic.close:hover{ background: var(--danger); border-color: var(--danger); }
 .traffic.minimize:hover{ background: var(--ink-dim); border-color: var(--ink-dim); }
 .traffic.maximize:hover{ background: var(--gold); border-color: var(--gold); }
+.traffic:hover::before{ color: rgba(0,0,0,.55); }
 .window-title{
   font-family: var(--font-mono); font-size: .72rem; color: var(--ink-dim);
   letter-spacing: .01em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
