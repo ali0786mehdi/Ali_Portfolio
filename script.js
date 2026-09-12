@@ -576,7 +576,7 @@
 
     const commands = {
       help: () =>
-        "Available commands: about, skills, projects, experience, contact, resume, whoami, theme [dark|light], open <app>, clear, date, banner",
+        "Available commands: about, skills, projects, experience, contact, resume, whoami, theme [dark|light], open <app>, close <app>, clear, date, banner",
       whoami: () => "ali-mehdi-mirza · Computer Engineering student, VIT Mumbai · CGPA 9.95",
       about: () =>
         "Full-stack MERN developer & AI enthusiast, based in Mumbai. Building AuthForge, Nexora, and an AI study planner. Open to internships.",
@@ -628,12 +628,21 @@
         }
         return;
       }
-      if (cmd === "open") {
+      if (cmd === "open" || cmd === "close") {
         const target = arg.toLowerCase().replace(/\s+/g, "-");
         const validTargets = ["about", "experience", "skills", "projects", "hobbies", "ventures", "ai-assistant", "terminal", "contact", "trash"];
+        if (!arg) {
+          printLine("Usage: " + cmd + " <app>. Try: " + validTargets.join(", "));
+          return;
+        }
         if (validTargets.indexOf(target) !== -1) {
-          WindowManager.open(target);
-          printLine("Opening " + target + "…");
+          if (cmd === "open") {
+            WindowManager.open(target);
+            printLine("Opening " + target + "…");
+          } else {
+            WindowManager.close(target);
+            printLine("Closing " + target + "…");
+          }
         } else {
           printLine("No such window: " + arg + ". Try: " + validTargets.join(", "));
         }
