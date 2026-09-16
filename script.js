@@ -677,13 +677,12 @@
   }
 
   /* ------------------------------------------------------------------
-     10. Ask Ali AI — local knowledge-base responder
-     NOTE: this runs entirely client-side against a small hard-coded
-     knowledge base, so no API key is exposed in the page source.
-     To upgrade this to a real LLM-backed assistant, replace answerFromKB()
-     with a fetch() to your own serverless endpoint that calls an LLM
-     API using a server-side key — never call a paid LLM API directly
-     from client-side JS with an embedded key.
+     10. AIMM — Ali's LLM-backed portfolio agent
+     Calls a Netlify Function (/.netlify/functions/aimm) which holds the
+     real LLM API key server-side. If that call fails (e.g. running
+     locally without `netlify dev`, or the function/key isn't set up
+     yet), it falls back to the small local keyword responder below so
+     the chat window never just breaks.
   ------------------------------------------------------------------ */
   function initAiAssistant() {
     const form = $("#ai-chat-form");
@@ -759,6 +758,21 @@
       return bubble;
     }
 
+    // rolling chat history, sent to AIMM for conversational context
+    const history = [];
+
+    async function askAimm(question) {
+      const resp = await fetch("/.netlify/functions/aimm", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: question, history })
+      });
+      if (!resp.ok) throw new Error("AIMM request failed: " + resp.status);
+      const data = await resp.json();
+      if (!data.reply) throw new Error("AIMM returned no reply");
+      return data.reply;
+    }
+
     function sendMessage(text) {
       const trimmed = text.trim();
       if (!trimmed) return;
@@ -766,11 +780,19 @@
       input.value = "";
 
       const typingBubble = appendMessage("…", "bot");
-      const delay = 350 + Math.random() * 450;
-      setTimeout(() => {
-        typingBubble.textContent = answerFromKB(trimmed);
-        log.scrollTop = log.scrollHeight;
-      }, delay);
+
+      askAimm(trimmed)
+        .then((reply) => {
+          typingBubble.textContent = reply;
+          history.push({ role: "user", text: trimmed });
+          history.push({ role: "bot", text: reply });
+          log.scrollTop = log.scrollHeight;
+        })
+        .catch(() => {
+          // offline / not-yet-configured fallback: local keyword responder
+          typingBubble.textContent = answerFromKB(trimmed);
+          log.scrollTop = log.scrollHeight;
+        });
     }
 
     form.addEventListener("submit", (e) => {
