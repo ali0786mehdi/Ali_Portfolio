@@ -211,10 +211,19 @@ code{ font-family: var(--font-mono); }
    Desktop icons
    ========================================================================== */
 .desktop-icons{
-  position:absolute; z-index: 5; top: calc(var(--statusbar-h) + 1.5rem); left: 1.25rem;
-  display:grid; grid-template-columns: repeat(2, 76px); gap: .4rem 1rem;
+  position:absolute; z-index: 5;
+  top: calc(var(--statusbar-h) + 1.5rem); left: 1.25rem;
+  bottom: calc(var(--taskbar-h) + .75rem);
+  display:grid; grid-auto-flow: column;
+  grid-template-rows: repeat(auto-fill, minmax(64px, 1fr));
+  grid-auto-columns: 76px;
+  gap: .4rem 1rem;
+  align-content: start;
+  overflow-x: auto; overflow-y: hidden;
 }
-@media (min-width: 640px){ .desktop-icons{ grid-template-columns: repeat(1, 84px); gap: .35rem; } }
+@media (min-width: 640px){
+  .desktop-icons{ grid-auto-columns: 84px; gap: .35rem; }
+}
 
 .desktop-icon{
   display:flex; flex-direction:column; align-items:center; gap:.4rem;
@@ -606,5 +615,5 @@ code{ font-family: var(--font-mono); }
    Small-screen desktop icon grid tidy-up
    ========================================================================== */
 @media (max-width: 420px){
-  .desktop-icons{ grid-template-columns: repeat(3, 1fr); left: 0; right: 0; padding: 0 .8rem; width: 100%; justify-items: center; }
+  .desktop-icons{ left: .8rem; right: .8rem; }
 }
