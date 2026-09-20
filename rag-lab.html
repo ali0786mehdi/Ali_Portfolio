@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAG Lab — AliOS</title>
+  <meta name="description" content="A practical blueprint for building production-ready retrieval-augmented generation systems." />
+  <link rel="stylesheet" href="rag-lab.css" />
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar"><a href="index.html" class="brand">A// AliOS</a><span class="status">RAG LAB / v1.0</span></nav>
+    <header class="hero">
+      <p class="eyebrow">Retrieval augmented generation</p>
+      <h1>Build answers<br /><em>grounded in evidence.</em></h1>
+      <p class="lede">A practical, end-to-end RAG workspace: ingest documents, chunk and embed them, retrieve the right context, generate a cited answer, and evaluate every step.</p>
+      <div class="hero-actions"><a class="button primary" href="#playground">Try the playground ↓</a><a class="button" href="#architecture">View architecture</a></div>
+    </header>
+
+    <section class="metrics" aria-label="RAG system stages">
+      <div><strong>01</strong><span>Ingest</span><small>PDF · web · DB</small></div><div><strong>02</strong><span>Index</span><small>chunk · embed · store</small></div><div><strong>03</strong><span>Retrieve</span><small>hybrid · rerank · filter</small></div><div><strong>04</strong><span>Generate</span><small>prompt · cite · stream</small></div><div><strong>05</strong><span>Evaluate</span><small>quality · latency · cost</small></div>
+    </section>
+
+    <section id="architecture" class="section">
+      <div class="section-heading"><p class="eyebrow">System design</p><h2>From raw data to reliable response.</h2></div>
+      <div class="pipeline">
+        <article><b>01</b><h3>Data ingestion</h3><p>Normalize PDFs, Markdown, web pages, and database rows. Keep source URL, title, access rules, and version metadata attached to every document.</p><code>load → clean → dedupe → version</code></article>
+        <article><b>02</b><h3>Chunking & embeddings</h3><p>Split by semantic boundaries with overlap. Store embeddings alongside the original text and metadata in a vector database.</p><code>chunk_size · overlap · model</code></article>
+        <article><b>03</b><h3>Hybrid retrieval</h3><p>Combine dense vector search with keyword search, metadata filters, and a reranker to improve recall without flooding the context window.</p><code>vector + BM25 → rerank → top-k</code></article>
+        <article><b>04</b><h3>Grounded generation</h3><p>Use a strict prompt, context budget, conversation memory, and structured citations. Abstain when the evidence is insufficient.</p><code>context → LLM → citations</code></article>
+      </div>
+    </section>
+
+    <section id="playground" class="section playground-section">
+      <div class="section-heading"><p class="eyebrow">Interactive demo</p><h2>Ask the knowledge base.</h2><p>Try a query about this RAG blueprint. The browser demo shows retrieval and citation behavior without exposing an API key.</p></div>
+      <div class="playground"><form id="rag-form"><label for="rag-query">Query</label><div class="input-row"><input id="rag-query" value="How do I improve retrieval quality?" autocomplete="off" /><button class="button primary" type="submit">Retrieve →</button></div></form><div id="rag-status" class="status-line">Ready · 4 documents indexed locally</div><div id="rag-results" class="results" aria-live="polite"></div></div>
+    </section>
+
+    <section class="section checklist"><div class="section-heading"><p class="eyebrow">Production checklist</p><h2>What makes a RAG system complete?</h2></div><div class="check-grid"><label><input type="checkbox" checked /> Document versioning and metadata filters</label><label><input type="checkbox" checked /> Hybrid retrieval and reranking</label><label><input type="checkbox" /> Streaming responses with citations</label><label><input type="checkbox" /> Prompt-injection and access-control checks</label><label><input type="checkbox" /> Retrieval, faithfulness, and answer-quality evals</label><label><input type="checkbox" /> Tracing latency, token cost, and failures</label></div></section>
+    <footer><span>AliOS / RAG Lab</span><a href="index.html">← Back to portfolio</a></footer>
+  </main>
+  <script src="rag-lab.js"></script>
+</body>
+</html>
