@@ -4,40 +4,47 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>RAG Lab — AliOS</title>
-  <meta name="description" content="A practical blueprint for building production-ready retrieval-augmented generation systems." />
+  <meta name="description" content="An interactive, browser-only RAG system builder that visualizes ingestion, chunking, retrieval, reranking, and grounded answers." />
   <link rel="stylesheet" href="rag-lab.css" />
 </head>
 <body>
   <main class="shell">
-    <nav class="topbar"><a href="index.html" class="brand">A// AliOS</a><span class="status">RAG LAB / v1.0</span></nav>
+    <nav class="topbar"><a href="index.html" class="brand">A// AliOS</a><span class="status">RAG LAB / BUILDER</span></nav>
     <header class="hero">
       <p class="eyebrow">Retrieval augmented generation</p>
-      <h1>Build answers<br /><em>grounded in evidence.</em></h1>
-      <p class="lede">A practical, end-to-end RAG workspace: ingest documents, chunk and embed them, retrieve the right context, generate a cited answer, and evaluate every step.</p>
-      <div class="hero-actions"><a class="button primary" href="#playground">Try the playground ↓</a><a class="button" href="#architecture">View architecture</a></div>
+      <h1>See how answers<br /><em>become grounded.</em></h1>
+      <p class="lede">Build a miniature RAG pipeline in your browser. Add knowledge, watch it become searchable chunks, retrieve evidence for a question, and inspect the answer and citations.</p>
+      <div class="hero-actions"><a class="button primary" href="#builder">Open the builder ↓</a><a class="button" href="#how-it-works">How it works</a></div>
+      <div class="notice"><strong>Browser simulation:</strong> this lab uses deterministic local retrieval and extractive answer generation. It demonstrates the architecture without sending your text to an API or pretending to be a production LLM.</div>
     </header>
 
     <section class="metrics" aria-label="RAG system stages">
-      <div><strong>01</strong><span>Ingest</span><small>PDF · web · DB</small></div><div><strong>02</strong><span>Index</span><small>chunk · embed · store</small></div><div><strong>03</strong><span>Retrieve</span><small>hybrid · rerank · filter</small></div><div><strong>04</strong><span>Generate</span><small>prompt · cite · stream</small></div><div><strong>05</strong><span>Evaluate</span><small>quality · latency · cost</small></div>
+      <div><strong>01</strong><span>Ingest</span><small>your knowledge</small></div><div><strong>02</strong><span>Chunk</span><small>searchable pieces</small></div><div><strong>03</strong><span>Retrieve</span><small>relevant evidence</small></div><div><strong>04</strong><span>Generate</span><small>grounded response</small></div><div><strong>05</strong><span>Evaluate</span><small>inspect quality</small></div>
     </section>
 
-    <section id="architecture" class="section">
-      <div class="section-heading"><p class="eyebrow">System design</p><h2>From raw data to reliable response.</h2></div>
-      <div class="pipeline">
-        <article><b>01</b><h3>Data ingestion</h3><p>Normalize PDFs, Markdown, web pages, and database rows. Keep source URL, title, access rules, and version metadata attached to every document.</p><code>load → clean → dedupe → version</code></article>
-        <article><b>02</b><h3>Chunking & embeddings</h3><p>Split by semantic boundaries with overlap. Store embeddings alongside the original text and metadata in a vector database.</p><code>chunk_size · overlap · model</code></article>
-        <article><b>03</b><h3>Hybrid retrieval</h3><p>Combine dense vector search with keyword search, metadata filters, and a reranker to improve recall without flooding the context window.</p><code>vector + BM25 → rerank → top-k</code></article>
-        <article><b>04</b><h3>Grounded generation</h3><p>Use a strict prompt, context budget, conversation memory, and structured citations. Abstain when the evidence is insufficient.</p><code>context → LLM → citations</code></article>
+    <section id="how-it-works" class="section">
+      <div class="section-heading"><p class="eyebrow">The mental model</p><h2>RAG is search plus generation.</h2><p>A language model knows patterns, but it may not know your private or current information. RAG first retrieves relevant source text, then gives that text to a model as evidence before it writes an answer.</p></div>
+      <div class="pipeline"><article><b>01 / INGEST</b><h3>Collect knowledge</h3><p>Documents can come from PDFs, websites, databases, or notes. Production systems also preserve source, permissions, and version metadata.</p></article><article><b>02 / INDEX</b><h3>Make it searchable</h3><p>Long documents are split into chunks. Each chunk is embedded and stored in a vector database alongside its original text.</p></article><article><b>03 / RETRIEVE</b><h3>Find evidence</h3><p>The question searches the index. Hybrid search, filters, and reranking help select the best evidence instead of sending everything to the model.</p></article><article><b>04 / GENERATE</b><h3>Answer with proof</h3><p>The model receives the question and selected chunks. A strict prompt asks it to stay within the evidence and cite its sources.</p></article></div>
+    </section>
+
+    <section id="builder" class="section builder-section">
+      <div class="section-heading"><p class="eyebrow">Hands-on builder</p><h2>Construct a tiny RAG system.</h2><p>Change the knowledge or settings, ingest it, then ask a question. Every stage below is visible so you can connect the UI to the real architecture.</p></div>
+      <div class="builder-grid">
+        <div class="panel source-panel"><div class="panel-title"><span>① Knowledge source</span><span id="doc-count" class="pill">0 documents</span></div><label for="source-text">Paste notes or documents</label><textarea id="source-text" rows="12">Ali builds full-stack applications with TypeScript, Node.js, PostgreSQL, Prisma, React, and Python.
+
+RAG systems retrieve relevant evidence before generation. Good retrieval combines semantic vector search, keyword search, metadata filters, and reranking.
+
+A production RAG system should preserve source citations, protect private documents, evaluate retrieval and faithfulness, and trace latency and token cost.
+
+Chunking works best when it preserves semantic boundaries such as headings and paragraphs. Chunk size and overlap should be tested against representative questions.</textarea><div class="controls"><label>Chunk size <output id="chunk-size-value">320</output><input id="chunk-size" type="range" min="120" max="700" step="20" value="320" /></label><label>Overlap <output id="overlap-value">40</output><input id="overlap" type="range" min="0" max="140" step="10" value="40" /></label></div><button id="ingest-btn" class="button primary" type="button">Ingest & index knowledge →</button></div>
+        <div class="panel index-panel"><div class="panel-title"><span>② Live index</span><span id="index-status" class="status-badge">Not indexed</span></div><div class="index-stats"><div><strong id="source-characters">0</strong><small>characters</small></div><div><strong id="chunk-count">0</strong><small>chunks</small></div><div><strong id="vocab-count">0</strong><small>terms</small></div></div><div id="chunk-preview" class="chunk-preview"><p class="empty">Ingest knowledge to see the chunks stored in the index.</p></div></div>
       </div>
+      <div class="panel query-panel"><div class="panel-title"><span>③ Ask the index</span><span id="query-status" class="status-badge">Waiting for index</span></div><form id="rag-form"><label for="rag-query">Your question</label><div class="input-row"><input id="rag-query" value="How do I improve retrieval quality?" autocomplete="off" /><button class="button primary" type="submit">Run pipeline →</button></div></form><div class="quick-queries"><button type="button" data-query="How do I improve retrieval quality?">retrieval quality</button><button type="button" data-query="What makes chunking effective?">chunking</button><button type="button" data-query="How do I make a RAG system production ready?">production readiness</button></div></div>
+      <div class="run-layout"><div class="panel trace-panel"><div class="panel-title"><span>④ Pipeline trace</span><span id="trace-time" class="muted">—</span></div><div id="trace" class="trace"><p class="empty">Run a question to inspect each RAG stage.</p></div></div><div class="panel answer-panel"><div class="panel-title"><span>⑤ Grounded answer</span><span class="status-badge grounded">Evidence required</span></div><div id="answer" class="answer"><p class="empty">Your answer will appear here with citations.</p></div></div></div>
     </section>
 
-    <section id="playground" class="section playground-section">
-      <div class="section-heading"><p class="eyebrow">Interactive demo</p><h2>Ask the knowledge base.</h2><p>Try a query about this RAG blueprint. The browser demo shows retrieval and citation behavior without exposing an API key.</p></div>
-      <div class="playground"><form id="rag-form"><label for="rag-query">Query</label><div class="input-row"><input id="rag-query" value="How do I improve retrieval quality?" autocomplete="off" /><button class="button primary" type="submit">Retrieve →</button></div></form><div id="rag-status" class="status-line">Ready · 4 documents indexed locally</div><div id="rag-results" class="results" aria-live="polite"></div></div>
-    </section>
-
-    <section class="section checklist"><div class="section-heading"><p class="eyebrow">Production checklist</p><h2>What makes a RAG system complete?</h2></div><div class="check-grid"><label><input type="checkbox" checked /> Document versioning and metadata filters</label><label><input type="checkbox" checked /> Hybrid retrieval and reranking</label><label><input type="checkbox" /> Streaming responses with citations</label><label><input type="checkbox" /> Prompt-injection and access-control checks</label><label><input type="checkbox" /> Retrieval, faithfulness, and answer-quality evals</label><label><input type="checkbox" /> Tracing latency, token cost, and failures</label></div></section>
-    <footer><span>AliOS / RAG Lab</span><a href="index.html">← Back to portfolio</a></footer>
+    <section class="section glossary"><div class="section-heading"><p class="eyebrow">Production checklist</p><h2>What this demo leaves to a real backend.</h2></div><div class="check-grid"><label><input type="checkbox" checked /> Ingestion, cleaning, and document versioning</label><label><input type="checkbox" checked /> Chunking with metadata preserved</label><label><input type="checkbox" checked /> Retrieval and reranking trace</label><label><input type="checkbox" /> Real embedding model and vector database</label><label><input type="checkbox" /> LLM generation with streaming citations</label><label><input type="checkbox" /> Auth, prompt-injection defense, and evaluation</label></div></section>
+    <footer><span>AliOS / RAG Lab Builder</span><a href="index.html">← Back to portfolio</a></footer>
   </main>
   <script src="rag-lab.js"></script>
 </body>
