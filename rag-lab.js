@@ -1,106 +1,21 @@
 (() => {
-  const $ = (selector) => document.querySelector(selector);
-  const source = $('#source-text');
-  const chunkSize = $('#chunk-size');
-  const overlap = $('#overlap');
-  const docs = [];
-  let index = [];
-  let indexed = false;
-
-  const stopWords = new Set('a an and are as at be by for from has how i in is it make of on or the that this to what with you your do does should system systems'.split(' '));
-  const tokenize = (value) => value.toLowerCase().replace(/[^a-z0-9\s-]/g, ' ').split(/\s+/).filter(word => word && !stopWords.has(word));
-  const escapeHtml = (value) => { const div = document.createElement('div'); div.textContent = value; return div.innerHTML; };
-
-  function updateControls() {
-    $('#chunk-size-value').textContent = chunkSize.value;
-    $('#overlap-value').textContent = overlap.value;
-  }
-  chunkSize.addEventListener('input', updateControls);
-  overlap.addEventListener('input', updateControls);
-
-  function splitIntoChunks(text, size, overlapSize) {
-    const paragraphs = text.split(/\n\s*\n/).map(part => part.trim()).filter(Boolean);
-    const result = [];
-    paragraphs.forEach((paragraph, paragraphIndex) => {
-      if (paragraph.length <= size) { result.push({ text: paragraph, paragraphIndex }); return; }
-      let start = 0;
-      while (start < paragraph.length) {
-        const end = Math.min(start + size, paragraph.length);
-        result.push({ text: paragraph.slice(start, end).trim(), paragraphIndex });
-        if (end === paragraph.length) break;
-        start = Math.max(end - overlapSize, start + 1);
-      }
-    });
-    return result;
-  }
-
-  function ingest() {
-    const text = source.value.trim();
-    if (!text) return;
-    const size = Number(chunkSize.value);
-    const overlapSize = Math.min(Number(overlap.value), Math.floor(size / 2));
-    index = splitIntoChunks(text, size, overlapSize).map((chunk, i) => ({
-      id: i + 1,
-      text: chunk.text,
-      terms: tokenize(chunk.text),
-      source: `notes-${chunk.paragraphIndex + 1}.txt`
-    }));
-    indexed = true;
-    $('#doc-count').textContent = `${text.split(/\n\s*\n/).filter(Boolean).length} documents`;
-    $('#source-characters').textContent = text.length;
-    $('#chunk-count').textContent = index.length;
-    $('#vocab-count').textContent = new Set(index.flatMap(chunk => chunk.terms)).size;
-    $('#index-status').textContent = 'Indexed locally';
-    $('#query-status').textContent = 'Ready to retrieve';
-    $('#chunk-preview').innerHTML = index.map(chunk => `<div class="chunk"><b>CHUNK ${String(chunk.id).padStart(2, '0')} · ${escapeHtml(chunk.source)}</b><br>${escapeHtml(chunk.text)}</div>`).join('');
-    runQuery($('#rag-query').value, false);
-  }
-
-  function scoreChunk(chunk, queryTerms) {
-    const uniqueQuery = [...new Set(queryTerms)];
-    const matches = uniqueQuery.filter(term => chunk.terms.includes(term));
-    const lexical = matches.length / Math.max(uniqueQuery.length, 1);
-    const coverage = matches.length / Math.max(chunk.terms.length, 1);
-    const pseudoSemantic = uniqueQuery.some(term => chunk.text.toLowerCase().includes(term.slice(0, Math.max(4, term.length - 1)))) ? .08 : 0;
-    return { matches, lexical, coverage, score: lexical * .78 + coverage * .14 + pseudoSemantic };
-  }
-
-  function makeAnswer(question, ranked) {
-    if (!ranked.length || ranked[0].score < .08) return { text: 'I could not find enough evidence in the indexed knowledge to answer that safely.', citations: [], evidence: [] };
-    const selected = ranked.slice(0, 2);
-    const sentenceParts = selected.map((chunk) => {
-      const sentences = chunk.text.split(/(?<=[.!?])\s+/);
-      const queryTerms = tokenize(question);
-      return sentences.sort((a, b) => queryTerms.filter(t => b.toLowerCase().includes(t)).length - queryTerms.filter(t => a.toLowerCase().includes(t)).length)[0];
-    }).filter(Boolean);
-    return { text: sentenceParts.join(' ') + ' ', citations: selected.map(chunk => `[${chunk.id}]`), evidence: selected };
-  }
-
-  function runQuery(question, animate = true) {
-    if (!indexed) { $('#trace').innerHTML = '<p class="empty">Ingest knowledge first, then run a question.</p>'; return; }
-    const query = question.trim() || 'How do I build a RAG system?';
-    const start = performance.now();
-    const queryTerms = tokenize(query);
-    const scored = index.map(chunk => ({ ...chunk, ...scoreChunk(chunk, queryTerms) }));
-    const ranked = scored.sort((a, b) => b.score - a.score).filter(chunk => chunk.score > 0).slice(0, 4);
-    const answer = makeAnswer(query, ranked);
-    const elapsed = Math.max(2, Math.round(performance.now() - start));
-    $('#query-status').textContent = `${ranked.length} evidence chunks found`;
-    $('#trace-time').textContent = `${elapsed} ms · local simulation`;
-    $('#trace').innerHTML = [
-      `<div class="trace-step"><b>1 · QUERY UNDERSTANDING</b><p>Tokenized question into ${queryTerms.length} searchable terms: ${escapeHtml(queryTerms.join(', ') || 'none')}.</p></div>`,
-      `<div class="trace-step"><b>2 · CANDIDATE RETRIEVAL</b><p>Compared the question with ${index.length} indexed chunks using lexical and pseudo-semantic signals.</p></div>`,
-      `<div class="trace-step"><b>3 · RERANKING</b><p>Kept ${ranked.length} chunks. Best match scored ${ranked[0] ? ranked[0].score.toFixed(2) : '0.00'} and matched ${ranked[0] ? ranked[0].matches.length : 0} terms.</p></div>`,
-      `<div class="trace-step"><b>4 · CONTEXT BUILDING</b><p>Selected the top ${answer.evidence.length} chunks and attached their source IDs as citations.</p></div>`,
-      `<div class="trace-step"><b>5 · GENERATION GUARDRAIL</b><p>${answer.evidence.length ? 'Answer is composed only from retrieved evidence.' : 'Abstained because evidence was insufficient.'}</p></div>`
-    ].join('');
-    $('#answer').innerHTML = `<p class="answer-text">${escapeHtml(answer.text)} ${answer.citations.map(citation => `<span class="citation">${citation}</span>`).join(' ')}</p><div class="evidence"><h4>Retrieved evidence</h4>${answer.evidence.length ? answer.evidence.map(chunk => `<p><span class="citation">[${chunk.id}]</span> ${escapeHtml(chunk.text)}</p>`).join('') : '<p>No supporting chunks were found. Try adding knowledge or asking a more specific question.</p>'}</div>`;
-    if (animate) document.querySelector('.answer').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  }
-
-  $('#ingest-btn').addEventListener('click', ingest);
-  $('#rag-form').addEventListener('submit', (event) => { event.preventDefault(); runQuery($('#rag-query').value); });
-  document.querySelectorAll('[data-query]').forEach(button => button.addEventListener('click', () => { $('#rag-query').value = button.dataset.query; runQuery(button.dataset.query); }));
-  updateControls();
-  ingest();
+  const $ = s => document.querySelector(s);
+  const DATA = {
+    portfolio: 'Ali builds full-stack applications with TypeScript, Node.js, PostgreSQL, Prisma, React, and Python.\n\nRAG systems retrieve relevant evidence before generation. Good retrieval combines semantic vector search, keyword search, metadata filters, and reranking.\n\nA production RAG system should preserve source citations, protect private documents, evaluate retrieval and faithfulness, and trace latency and token cost.\n\nChunking works best when it preserves semantic boundaries such as headings and paragraphs. Chunk size and overlap should be tested against representative questions.',
+    rag: 'Retrieval augmented generation adds external knowledge to a language model at answer time.\n\nIngestion cleans and normalizes files, then chunking divides them into meaningful passages with metadata. Embeddings represent each passage as a vector and a vector database stores the index.\n\nRetrieval can combine dense vector similarity with BM25 keyword search. A reranker orders candidates and metadata filters enforce access control.\n\nGrounded generation passes the best chunks to an LLM with instructions to cite evidence and abstain when the context is insufficient. Evaluation measures recall, faithfulness, answer quality, latency, and cost.',
+    product: 'Customers can reset a password from Settings, then choose Security and Reset password. A verification email expires after fifteen minutes.\n\nThe Pro plan includes unlimited projects, team permissions, audit logs, and priority support. Billing changes take effect on the next invoice.\n\nSupport agents should never request a full password or authentication code. Escalate account ownership issues after identity verification.\n\nThe service status page reports incidents, maintenance windows, and recovery updates.'
+  };
+  const stop = new Set('a an and are as at be by for from has how i in is it make of on or the that this to what with you your do does should system systems'.split(' '));
+  const tokenize = v => v.toLowerCase().replace(/[^a-z0-9\s-]/g,' ').split(/\s+/).filter(x=>x&&!stop.has(x));
+  const esc = v => { const d=document.createElement('div'); d.textContent=v; return d.innerHTML; };
+  let index=[], indexed=false;
+  const source=$('#source-text'), select=$('#source-select'), size=$('#chunk-size'), over=$('#overlap');
+  function controls(){ $('#chunk-size-value').textContent=size.value; $('#overlap-value').textContent=over.value; }
+  function split(text,n,ov){return text.split(/\n\s*\n/).map((p,pi)=>p.trim()).filter(Boolean).flatMap((p)=>{if(p.length<=n)return[{text:p,pi}];let a=[],start=0;while(start<p.length){let end=Math.min(start+n,p.length);a.push({text:p.slice(start,end).trim(),pi});if(end===p.length)break;start=Math.max(end-ov,start+1)}return a})}
+  function ingest(){const text=source.value.trim();if(!text)return;const n=+size.value,ov=Math.min(+over.value,Math.floor(n/2));index=split(text,n,ov).map((c,i)=>({id:i+1,text:c.text,terms:tokenize(c.text),source:`${select.value}-source-${c.pi+1}.txt`}));indexed=true;$('#doc-count').textContent=`${text.split(/\n\s*\n/).filter(Boolean).length} documents`;$('#source-characters').textContent=text.length;$('#chunk-count').textContent=index.length;$('#vocab-count').textContent=new Set(index.flatMap(x=>x.terms)).size;$('#index-status').textContent='Indexed locally';$('#query-status').textContent='Ready to retrieve';$('#chunk-preview').innerHTML=index.map(c=>`<div class="chunk"><b>CHUNK ${String(c.id).padStart(2,'0')} · ${esc(c.source)}</b><br>${esc(c.text)}</div>`).join('');run($('#rag-query').value,false)}
+  function score(c,terms){const q=[...new Set(terms)],matches=q.filter(t=>c.terms.includes(t));const lexical=matches.length/Math.max(q.length,1),coverage=matches.length/Math.max(c.terms.length,1);const semantic=q.some(t=>c.text.toLowerCase().includes(t.slice(0,Math.max(4,t.length-1))))?.08:0;return{matches,score:Math.min(1,lexical*.78+coverage*.14+semantic)}}
+  function answerData(q,ranked){if(!ranked.length||ranked[0].score<.08)return{text:'I could not find enough evidence in the indexed knowledge to answer that safely.',evidence:[]};const chosen=ranked.slice(0,2);const terms=tokenize(q);const sentences=chosen.map(c=>c.text.split(/(?<=[.!?])\s+/).sort((a,b)=>terms.filter(t=>b.toLowerCase().includes(t)).length-terms.filter(t=>a.toLowerCase().includes(t)).length)[0]).filter(Boolean);return{text:sentences.join(' '),evidence:chosen}}
+  function draw(ranked,queryTerms){const canvas=$('#vector-graph'),ctx=canvas.getContext('2d'),w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(248,246,241,.08)';ctx.lineWidth=1;for(let x=30;x<w;x+=70){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}for(let y=30;y<h;y+=70){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}const qx=w*.5,qy=h*.5;ctx.strokeStyle='rgba(103,183,255,.35)';ranked.forEach((c,i)=>{const angle=i*2.399+(c.id*.41),dist=45+(1-c.score)*110,x=Math.max(18,Math.min(w-18,qx+Math.cos(angle)*dist)),y=Math.max(18,Math.min(h-18,qy+Math.sin(angle)*dist));ctx.beginPath();ctx.moveTo(qx,qy);ctx.lineTo(x,y);ctx.stroke();ctx.beginPath();ctx.fillStyle=c.score>.08?'#7ee787':'#8a7538';ctx.arc(x,y,c.score>.08?7:5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#9a97a3';ctx.font='11px DM Mono, monospace';ctx.fillText('C'+c.id,x+9,y+4)});ctx.beginPath();ctx.fillStyle='#67b7ff';ctx.arc(qx,qy,9,0,Math.PI*2);ctx.fill();ctx.fillStyle='#f8f6f1';ctx.font='11px DM Mono, monospace';ctx.fillText('QUERY',qx+13,qy+4)}
+  function run(q,scroll=true){if(!indexed){$('#trace').innerHTML='<p class="empty">Ingest knowledge first.</p>';return}const question=q.trim()||'How do I build a RAG system?',terms=tokenize(question),start=performance.now();const scored=index.map(c=>({...c,...score(c,terms)})).sort((a,b)=>b.score-a.score),ranked=scored.filter(c=>c.score>0).slice(0,6),data=answerData(question,ranked),confidence=Math.round((ranked.length?Math.min(1,ranked[0].score+.18):0)*100),risk=100-confidence;$('#query-status').textContent=`${ranked.length} evidence chunks found`;$('#trace-time').textContent=`${Math.max(2,Math.round(performance.now()-start))} ms · local simulation`;$('#confidence-value').textContent=`${confidence}%`;$('#risk-value').textContent=`${risk}%`;$('#confidence-meter').style.width=confidence+'%';$('#risk-meter').style.width=risk+'%';$('#score-chart').innerHTML=ranked.length?ranked.map(c=>`<div class="score-row ${c.score>=.08?'selected':''}"><span>C${c.id} · ${esc(c.source)}</span><div class="bar"><i style="width:${Math.max(3,Math.round(c.score*100))}%"></i></div><b class="score-value">${c.score.toFixed(2)}</b></div>`).join(''):'<p class="empty">No matching chunks.</p>';draw(ranked,terms);const citations=data.evidence.map(c=>`<span class="citation">[${c.id}]</span>`).join(' ');const text=data.text;$('#evidence-answer').className=data.evidence.length?'answer-text':'answer-text empty';$('#evidence-answer').innerHTML=esc(text)+' '+citations;$('#llm-answer').className=data.evidence.length?'answer-text':'answer-text empty';$('#llm-answer').innerHTML=data.evidence.length?esc(`Based on the retrieved evidence, ${text.charAt(0).toLowerCase()+text.slice(1)}`)+' '+citations:esc(text);$('#answer').innerHTML=`<p class="answer-text">${esc(text)} ${citations}</p><div class="evidence"><h4>Retrieved evidence</h4>${data.evidence.length?data.evidence.map(c=>`<p><span class="citation">[${c.id}]</span> ${esc(c.text)}</p>`).join(''):'<p>No supporting chunks found. Add knowledge or ask a more specific question.</p>'}</div>`;$('#trace').innerHTML=[`<div class="trace-step"><b>1 · QUERY UNDERSTANDING</b><p>Tokenized into ${terms.length} searchable terms: ${esc(terms.join(', ')||'none')}.</p></div>`,`<div class="trace-step"><b>2 · CANDIDATE RETRIEVAL</b><p>Compared the query with ${index.length} indexed chunks using lexical and pseudo-semantic signals.</p></div>`,`<div class="trace-step"><b>3 · RERANKING</b><p>Sorted candidates by similarity. Best match scored ${ranked[0]?ranked[0].score.toFixed(2):'0.00'}.</p></div>`,`<div class="trace-step"><b>4 · CONTEXT BUILDING</b><p>Selected ${data.evidence.length} chunks and preserved their source IDs.</p></div>`,`<div class="trace-step"><b>5 · GENERATION GUARDRAIL</b><p>${data.evidence.length?'Answer is restricted to retrieved evidence.':'Abstained because evidence was insufficient.'}</p></div>`].join('');if(scroll)$('#answer').scrollIntoView({behavior:'smooth',block:'nearest'})}
+  select.addEventListener('change',()=>{source.value=select.value==='custom'?'':DATA[select.value]||''});$('#ingest-btn').addEventListener('click',ingest);$('#rag-form').addEventListener('submit',e=>{e.preventDefault();run($('#rag-query').value)});document.querySelectorAll('[data-query]').forEach(b=>b.addEventListener('click',()=>{$('#rag-query').value=b.dataset.query;run(b.dataset.query)}));size.addEventListener('input',controls);over.addEventListener('input',controls);source.value=DATA.portfolio;controls();ingest();
 })();
