@@ -1,96 +1,66 @@
-## What is AliOS?
+# AliOS — Interactive Developer Portfolio
 
-It's my portfolio, but instead of a normal scrolling page, it looks and behaves like a small desktop operating system.
-<a href="https://alimehdiport.netlify.app/" target="_blank">My Portfolio</a>
-- You boot into it (a short loading screen, skippable)
-- You see a desktop with icons: About, Experience, Skills, Projects, Hobbies, Ventures, Contact, and more
-- Clicking an icon opens a window — you can drag it around, resize it, minimize it, or close it
-- There's a taskbar at the bottom showing what's open
-- There's a real terminal you can type commands into
-- There's a chat window where you can ask questions about me and get real answers, not a static FAQ
+> A desktop-inspired portfolio for **Ali Mehdi Mirza** — built to be explored, not just scrolled.
 
-The idea: instead of *telling* you I'm a developer, let you *use* something I built.
+[![Live Portfolio](https://img.shields.io/badge/Live%20Portfolio-Visit-c9a84c?style=for-the-badge)](https://alimehdiport.netlify.app/)
+[![GitHub](https://img.shields.io/badge/GitHub-ali0786mehdi-181717?style=for-the-badge&logo=github)](https://github.com/ali0786mehdi)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/ali-mehdi-mirza-2ba8a624b)
 
----
+AliOS presents my experience, projects, skills, and contact details inside a lightweight operating-system-style interface. Open windows, move and resize them, use the terminal, chat with AIMM, switch themes, and discover the portfolio at your own pace.
 
-## Currently Building — Bitly
+## Contents
 
-This portfolio is the shop window. The workbench is here:
+- [Highlights](#highlights)
+- [Projects](#projects)
+- [Built With](#built-with)
+- [Run Locally](#run-locally)
+- [Project Structure](#project-structure)
+- [Design and Engineering Notes](#design-and-engineering-notes)
+- [Connect](#connect)
 
-**[Bitly →](https://github.com/ali0786mehdi/Bitly)** — a URL shortener
+## Highlights
 
-If you're evaluating me for a backend or systems role, that repo is a more honest signal than this one. This README documents the portfolio; Bitly and AuthForge document how I think about auth, data modeling, and API design.
+- **Interactive desktop:** Launch About, Experience, Skills, Projects, Hobbies, Ventures, Contact, Terminal, and more from desktop icons or the start menu.
+- **Window manager:** Drag, resize, focus, minimize, maximize, and close application windows.
+- **AIMM assistant:** Ask questions about my background, technology stack, projects, experience, or availability. The deployed version can use the Netlify Function at `/.netlify/functions/aimm`, with a local knowledge-base fallback when the function is unavailable.
+- **Portfolio terminal:** Try commands such as `help`, `about`, `skills`, `projects`, `open projects`, `theme light`, and `resume`.
+- **Responsive experience:** Desktop windows become mobile-friendly full-screen sheets on smaller screens.
+- **Personalization:** Toggle light/dark mode, change the wallpaper, replay the boot sequence, and use the custom context menu.
+- **Accessible interactions:** Semantic controls, ARIA states, visible form feedback, reduced-motion support, and graceful touch-device behavior.
+- **Contact form:** Send a message through Formspree or use the direct email link in the Contact window.
 
----
+## Projects
 
-## Why No Framework
+| Project | Description | Links |
+| --- | --- | --- |
+| **AuthForge** | Authentication API built with TypeScript, Express, PostgreSQL, and Prisma, including JWT rotation, RBAC, OAuth2, 2FA, and rate limiting. | [Repository](https://github.com/ali0786mehdi/authforge) |
+| **Nexora** | Real-time chat platform exploring WebSockets, Redis Pub/Sub, queues, and scalable backend architecture. | [Repository](https://github.com/ali0786mehdi/nexora) |
+| **AI-Powered Study Planner** | MERN application that uses the Gemini API to generate personalized study schedules. | [Live demo](https://ai-study-planner-using-gemini.vercel.app/) · [Repository](https://github.com/ali0786mehdi/ai-study-planner) |
+| **Bitly** | A URL shortener currently under development. | [Repository](https://github.com/ali0786mehdi/Bitly) |
+| **SSoC contributions** | Open-source work across algorithmic solutions and AI-driven automation projects. | [Algo-Infinity-Verse](https://github.com/Eshajha19/Algo-Infinity-Verse) · [AI-Agent-Automation](https://github.com/vmDeshpande/ai-agent-automation) |
 
-Most portfolios ship 200–300KB of JavaScript to render a name, a photo, and three cards. This one doesn't, on purpose.
+## Built With
 
-Not because frameworks are bad — I use React/Node daily elsewhere on this GitHub — but because a personal site is a small, mostly-static problem, and reaching for a framework to solve it would be the wrong tool for the job. Even with a full window-manager UI (drag, resize, minimize, taskbar), plain HTML, CSS, and JavaScript were enough.
+- **HTML5** — semantic structure and JSON-LD metadata
+- **CSS3** — custom properties, Grid, Flexbox, animations, responsive layouts, and light/dark themes
+- **Vanilla JavaScript** — window management, drag/resize interactions, terminal commands, local storage, Clipboard API, and chat behavior
+- **Netlify** — deployment and the optional server-side AIMM function
+- **Formspree** — contact form delivery
 
-What that buys here:
-- No build step, no `node_modules`, no bundler config to go stale
-- Every animation, drag, and interaction is a native browser feature I can point to and explain line-by-line
-- Nothing to patch when a dependency ships a breaking change six months from now
+No framework, bundler, or package installation is required for the static portfolio interface.
 
----
+## Run Locally
 
-## What's Inside, in Plain English
-
-| Part | What it does |
-|---|---|
-| **Boot screen** | A short fake loading sequence the first time you visit. Skips itself automatically on your next visit. |
-| **Desktop icons** | Click one, a window opens. Same idea as a computer desktop. |
-| **Windows** | Each section (About, Projects, Skills, etc.) lives in its own window. You can drag it by the top bar, resize it from the corner, minimize it, maximize it, or close it. |
-| **Taskbar** | Shows which windows are currently open, so you can jump back to them. |
-| **Start menu** | A quick list of every window, with a search box to filter it. |
-| **Right-click menu** | Right-click empty desktop space for small extras — change wallpaper, toggle theme. |
-| **Terminal** | A real, typeable terminal. Type `help` to see the commands — you can open sections, read my skills, or grab my resume, all by typing. |
-| **Ask Ali AI** | A chat window you can ask things like "what's Ali's stack?" or "is Ali available for internships?" It matches your question against a small set of real facts about me and answers — no made-up information. |
-| **Simplify button** | On the more technical project (Nexora), one click swaps the technical description for a plain-English one, and back. |
-| **Contact form** | A real form that emails me directly, with a working success/error message. |
-| **Light / dark theme** | Toggle from the top bar or the right-click menu. Your choice is remembered next time you visit. |
-
----
-
-## Engineering Notes
-
-Specific decisions worth flagging, in the order a reviewer would likely find them:
-
-| Area | Decision | Reasoning |
-|---|---|---|
-| **Windows** | Each window is a plain HTML element, shown/hidden and moved with CSS + a small amount of JS — no UI framework | Dragging, resizing, and stacking windows sounds complex, but it's really just tracking a position and a z-index. Doing it by hand keeps the whole system inspectable in one file. |
-| **Boot screen** | Skips itself after the first visit, using `localStorage` | Nobody wants to watch a loading animation every single time. It's a one-time introduction, not a gate. |
-| **Ask Ali AI** | Answers come from a small hard-coded list of facts about me, matched by keyword — not a live call to a paid AI service | This keeps the assistant honest (it can't make things up about me) and keeps the site dependency-free and free to host. The code has a note on how to swap in a real AI backend later, the right way — through a server, never with a secret key sitting in the page's JavaScript. |
-| **Terminal** | A small command parser (`help`, `about`, `skills`, `open <window>`, etc.) rather than a real shell | It's a portfolio easter egg, not a real terminal — but it's genuinely functional, not just decoration. |
-| **Custom cursor** | Turned off automatically on touch devices, instead of just hidden with CSS | A cursor-follow effect with nothing to follow is dead code on phones and tablets. Detecting and skipping it is cheaper than shipping it and hiding it. |
-| **External links** | `rel="noopener noreferrer"` on every `target="_blank"` link | Without it, a linked page can read and redirect the tab that opened it — a real security gap, not a style nitpick. |
-| **Clipboard copy** (email button) | Falls back to just showing the email as text if the Clipboard API isn't available | The Clipboard API needs a secure connection; degrading gracefully beats a button that silently does nothing. |
-| **Theming** | One `data-theme` attribute and a single set of CSS variables, not two separate stylesheets | One source of truth for every color, so light and dark mode can never drift out of sync. |
-| **Contact form** | Submits with `fetch`, shows a real success or error message, and disables the button while sending | So you always know whether your message actually went through. |
-
----
-
-## Tech Stack
-
-```
-Structure   HTML5 — semantic markup, JSON-LD structured data for SEO
-Styling     CSS3 — Grid, Flexbox, custom properties, keyframes
-Logic       Vanilla JS — DOM APIs, drag & resize, localStorage, Clipboard API
-Hosting     Netlify (CDN)
-```
-
----
-
-## Running Locally
-
-No build step, no install step.
+Clone the repository and open the page directly in a browser:
 
 ```bash
-git clone https://github.com/ali0786mehdi/portfolio.git
-cd portfolio
+git clone https://github.com/ali0786mehdi/Ali_Portfolio.git
+cd Ali_Portfolio
+```
 
+Then open `index.html`:
+
+```bash
 # macOS
 open index.html
 
@@ -101,41 +71,59 @@ start index.html
 xdg-open index.html
 ```
 
-Or just double-click `index.html`. There is nothing to compile.
+You can also double-click `index.html`. There is no build step or `npm install` requirement.
 
----
+### Optional Netlify Function
+
+The AIMM chat can call `/.netlify/functions/aimm` when the site is run through Netlify. When opening the HTML file directly, or when the function is unavailable, the client automatically falls back to its local keyword-based responses.
 
 ## Project Structure
 
+```text
+Ali_Portfolio/
+├── index.html       Portfolio markup, desktop shell, windows, and metadata
+├── style.css        Design tokens, window chrome, themes, responsive styles
+├── script.js        Window manager, terminal, AIMM, forms, and interactions
+├── rag-lab.html     RAG Lab experience linked from the desktop
+├── netlify/         Netlify Function configuration and serverless functions
+├── README.md        Project documentation
+└── assets            Images, resume, favicon, and other static assets
 ```
-portfolio/
-├── index.html      All windows, boot screen, and page structure
-├── style.css        Design tokens, window styling, animation, theming
-├── script.js         Window manager, terminal, AI chat, form logic
-├── image.png        Preview screenshot
-└── README.md
-```
+
+> File names may vary as the portfolio evolves. The main entry point remains `index.html`.
+
+## Design and Engineering Notes
+
+### Why vanilla JavaScript?
+
+This portfolio is intentionally framework-free. The interface is small enough to solve with browser APIs, so keeping it dependency-free makes the code easier to inspect, deploy, and maintain. It also keeps the focus on the interaction design rather than a build pipeline.
+
+### State and persistence
+
+`localStorage` remembers the boot-screen preference and selected theme. The desktop itself is rendered with HTML and CSS, while JavaScript manages window state, stacking order, dragging, resizing, and taskbar updates.
+
+### AIMM fallback behavior
+
+The deployed assistant first attempts the Netlify Function so the model credential can remain server-side. If that request fails, a local knowledge base answers common questions instead of leaving the chat unusable. The UI also clearly notes that generated answers may be imperfect.
+
+### Responsive and accessible behavior
+
+Desktop interactions are adapted for smaller screens: windows become sheets, dragging and resizing are disabled where they are not practical, and the custom cursor is skipped on touch devices. The stylesheet also honors `prefers-reduced-motion`.
+
+### Progressive enhancement
+
+The portfolio remains useful without the optional backend function. External links use `noopener noreferrer`, clipboard copying has a visible fallback, and the contact form reports both success and failure states.
+
+## Connect
+
+- **Portfolio:** [alimehdiport.netlify.app](https://alimehdiport.netlify.app/)
+- **GitHub:** [@ali0786mehdi](https://github.com/ali0786mehdi)
+- **LinkedIn:** [Ali Mehdi Mirza](https://linkedin.com/in/ali-mehdi-mirza-2ba8a624b)
+- **LeetCode:** [Ali_mehdi_mirza](https://leetcode.com/u/Ali_mehdi_mirza)
+- **Email:** [alimehdimirza1010@gmail.com](mailto:alimehdimirza1010@gmail.com)
+
+Open to backend, full-stack, and platform-engineering internships, remotely or in Mumbai.
 
 ---
 
-## Elsewhere on This Profile
-
-| Project | Focus |
-|---|---|
-| [Bitly](https://github.com/ali0786mehdi/Bitly) | URL shortener — currently in progress |
-| [AuthForge](https://github.com/ali0786mehdi/authforge) | Auth API — TypeScript, Express, Prisma, PostgreSQL |
-| [Nexora](https://github.com/ali0786mehdi/nexora) | Real-time chat platform — Redis, WebSockets, BullMQ |
-| [AI-Powered Study Planner](https://github.com/ali0786mehdi/ai-study-planner) | Full-stack MERN, Gemini API, JWT auth |
-
----
-
-## Contact
-
-<p align="left">
-  <a href="https://alimehdiport.netlify.app/"><img src="https://img.shields.io/badge/-Portfolio-c9a84c?style=for-the-badge" /></a>
-  <a href="https://linkedin.com/in/ali-mehdi-mirza-2ba8a624b"><img src="https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" /></a>
-  <a href="mailto:alimehdimirza1010@gmail.com"><img src="https://img.shields.io/badge/-Email-c9a84c?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-  <a href="https://leetcode.com/u/Ali_mehdi_mirza"><img src="https://img.shields.io/badge/-LeetCode-FFA116?style=for-the-badge&logo=leetcode&logoColor=black" /></a>
-</p>
-
-<sub>Open to backend, full-stack, and platform-engineering internships — remote or Mumbai.</sub>
+Built with HTML, CSS, JavaScript, and a lot of curiosity by **Ali Mehdi Mirza**.
