@@ -73,9 +73,12 @@ xdg-open index.html
 
 You can also double-click `index.html`. There is no build step or `npm install` requirement.
 
-### Optional Netlify Function
+### AIMM & RAG System
 
-The AIMM chat can call `/.netlify/functions/aimm` when the site is run through Netlify. When opening the HTML file directly, or when the function is unavailable, the client automatically falls back to its local keyword-based responses.
+The portfolio features a hybrid Retrieval-Augmented Generation (RAG) system running both client-side and server-side:
+- **Client-side RAG (`rag-engine.js`):** A zero-dependency hybrid retrieval engine utilizing BM25Okapi lexical search, 64-dimensional dense semantic subword n-gram vector embeddings with cosine similarity, reciprocal rank fusion, reranking, and citation-backed grounded answer generation.
+- **Interactive RAG Lab (`rag-lab.html` / `rag-lab.js`):** A visual RAG laboratory allowing visitors to experiment with chunking strategies, inspect candidates on an interactive 2D vector similarity canvas, review pipeline execution traces, evaluate confidence/hallucination risk, and compare extractive vs. synthesized grounded answers.
+- **Serverless AIMM (`netlify/functions/aimm.js`):** Serverless endpoint that performs hybrid retrieval over Ali's portfolio knowledge base, augments prompts for Google Gemini (with fallbacks across models), and returns citations. If the server function or API key is not configured, the assistant automatically falls back to client-side RAG generation with zero interruption.
 
 ## Project Structure
 
@@ -84,10 +87,15 @@ Ali_Portfolio/
 ├── index.html       Portfolio markup, desktop shell, windows, and metadata
 ├── style.css        Design tokens, window chrome, themes, responsive styles
 ├── script.js        Window manager, terminal, AIMM, forms, and interactions
-├── rag-lab.html     RAG Lab experience linked from the desktop
+├── rag-engine.js    Universal Hybrid RAG engine (BM25 + Dense Vectors + Citations)
+├── rag-lab.html     Interactive RAG Lab workbench
+├── rag-lab.js       RAG Lab UI controller, 2D vector canvas, and charts
+├── rag-lab.css      RAG Lab design tokens, layout, and visual meters
 ├── netlify/         Netlify Function configuration and serverless functions
+│   └── functions/
+│       └── aimm.js  Serverless RAG endpoint backed by Gemini API
 ├── README.md        Project documentation
-└── assets            Images, resume, favicon, and other static assets
+└── assets           Images, resume, favicon, and other static assets
 ```
 
 > File names may vary as the portfolio evolves. The main entry point remains `index.html`.
@@ -98,13 +106,22 @@ Ali_Portfolio/
 
 This portfolio is intentionally framework-free. The interface is small enough to solve with browser APIs, so keeping it dependency-free makes the code easier to inspect, deploy, and maintain. It also keeps the focus on the interaction design rather than a build pipeline.
 
+### Hybrid RAG Engine Design
+
+Rather than a simple keyword lookup or external vector database dependency, `rag-engine.js` implements:
+1. **Sentence-aware Chunking:** Preserves semantic paragraphs and sentence boundaries with configurable sliding overlap.
+2. **Dense Semantic Embeddings:** Computes 64-dimensional subword character n-gram hashing vectors that are L2-normalized for cosine similarity.
+3. **BM25Okapi Lexical Search:** Applies term frequency saturation and document length normalization (`k1=1.5`, `b=0.75`).
+4. **Hybrid Rank Fusion & Reranking:** Combines dense semantic similarity and sparse BM25 scores with phrase proximity boosts and query coverage reranking.
+5. **Grounded Generation & Guardrails:** Synthesizes responses strictly backed by retrieved evidence sentences, providing exact `[C1]` citation anchors and computing confidence and hallucination risk metrics.
+
 ### State and persistence
 
 `localStorage` remembers the boot-screen preference and selected theme. The desktop itself is rendered with HTML and CSS, while JavaScript manages window state, stacking order, dragging, resizing, and taskbar updates.
 
 ### AIMM fallback behavior
 
-The deployed assistant first attempts the Netlify Function so the model credential can remain server-side. If that request fails, a local knowledge base answers common questions instead of leaving the chat unusable. The UI also clearly notes that generated answers may be imperfect.
+The deployed assistant first attempts the Netlify Function so the model credential can remain server-side. If that request fails, the local hybrid RAG engine answers questions with grounded context instead of leaving the chat unusable. The UI also clearly notes that generated answers may be imperfect.
 
 ### Responsive and accessible behavior
 

@@ -576,7 +576,7 @@
 
     const commands = {
       help: () =>
-        "Available commands: about, skills, projects, experience, contact, resume, whoami, theme [dark|light], open <app>, close <app>, clear, date, banner",
+        "Available commands: about, skills, projects, experience, contact, resume, rag, whoami, theme [dark|light], open <app>, close <app>, clear, date, banner",
       whoami: () => "ali-mehdi-mirza · Computer Engineering student, VIT Mumbai · CGPA 9.95",
       about: () =>
         "Full-stack MERN developer & AI enthusiast, based in Mumbai. Building AuthForge, Nexora, and an AI study planner. Open to internships.",
@@ -588,6 +588,7 @@
         "AuthForge (auth API), Nexora (real-time chat), AI-Powered Study Planner, SSoC 2026 contributions. Type 'open projects' to see them.",
       contact: () => "alimehdimirza1010@gmail.com · +91 89530 19234 · type 'open contact' for the form.",
       resume: () => "Opening resume in a new tab…",
+      rag: () => "Launching RAG Lab interactive pipeline builder…",
       date: () => new Date().toString(),
       banner: () => "     _    _ _  ___  ____  \n    / \\  | (_)/ _ \\/ ___| \n   / _ \\ | | | | | \\___ \\ \n  / ___ \\| | | |_| |___) |\n /_/   \\_\\_|_|\\___/|____/  — AliOS"
     };
@@ -653,6 +654,11 @@
         window.open("AMM_Resume_internship%20(1).pdf", "_blank", "noopener,noreferrer");
         return;
       }
+      if (cmd === "rag") {
+        printLine(commands.rag());
+        window.location.href = "rag-lab.html";
+        return;
+      }
       if (commands[cmd]) {
         printLine(commands[cmd]());
         return;
@@ -677,18 +683,27 @@
   }
 
   /* ------------------------------------------------------------------
-     10. AIMM — Ali's LLM-backed portfolio agent
-     Calls a Netlify Function (/.netlify/functions/aimm) which holds the
-     real LLM API key server-side. If that call fails (e.g. running
-     locally without `netlify dev`, or the function/key isn't set up
-     yet), it falls back to the small local keyword responder below so
-     the chat window never just breaks.
+     10. AIMM — Ali's RAG-backed portfolio agent
+     Calls a Netlify Function (/.netlify/functions/aimm) which executes
+     server-side RAG with Google Gemini. If that call fails or runs
+     offline/locally, it smoothly falls back to the client-side RagEngine
+     hybrid retrieval index with strict grounding.
   ------------------------------------------------------------------ */
   function initAiAssistant() {
     const form = $("#ai-chat-form");
     const input = $("#ai-chat-input");
     const log = $("#ai-chat-log");
     if (!form || !input || !log) return;
+
+    let localIndex = null;
+    function getIndex() {
+      if (localIndex) return localIndex;
+      if (typeof RagEngine !== "undefined" && RagEngine.DATASETS && RagEngine.DATASETS.portfolio) {
+        const chunks = RagEngine.chunkDocument(RagEngine.DATASETS.portfolio, 280, 40, "Ali_Portfolio");
+        localIndex = new RagEngine.RagIndex(chunks);
+      }
+      return localIndex;
+    }
 
     const KB = [
       {
@@ -729,7 +744,7 @@
       }
     ];
 
-    const fallback = "I don't have a specific answer for that yet — try asking about Ali's stack, projects, experience, or availability, or open the Contact window to ask him directly.";
+    const fallback = "I don't have enough verified context to answer that safely — try asking about Ali's stack, projects, experience, or availability, or open the Contact window to ask him directly.";
 
     function answerFromKB(question) {
       const q = question.toLowerCase();
@@ -740,6 +755,20 @@
         if (score > bestScore) { bestScore = score; best = entry; }
       });
       return best ? best.answer : fallback;
+    }
+
+    function answerFromRAG(question) {
+      const idx = getIndex();
+      if (idx) {
+        const searchRes = idx.search(question, 3);
+        if (searchRes.topK.length > 0 && searchRes.topK[0].score >= 0.14) {
+          const gen = RagEngine.GroundedGenerator.generate(question, searchRes.topK);
+          if (!gen.abstain && gen.llmAnswer) {
+            return gen.llmAnswer.replace(/\[C\d+\]/g, "").trim();
+          }
+        }
+      }
+      return answerFromKB(question);
     }
 
     function appendMessage(text, who) {
@@ -789,8 +818,11 @@
           log.scrollTop = log.scrollHeight;
         })
         .catch(() => {
-          // offline / not-yet-configured fallback: local keyword responder
-          typingBubble.textContent = answerFromKB(trimmed);
+          // offline / local fallback: hybrid RAG responder
+          const groundedReply = answerFromRAG(trimmed);
+          typingBubble.textContent = groundedReply;
+          history.push({ role: "user", text: trimmed });
+          history.push({ role: "bot", text: groundedReply });
           log.scrollTop = log.scrollHeight;
         });
     }
