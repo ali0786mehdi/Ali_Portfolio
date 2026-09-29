@@ -144,3 +144,14 @@ Open to backend, full-stack, and platform-engineering internships, remotely or i
 ---
 
 Built with HTML, CSS, JavaScript, and a lot of curiosity by **Ali Mehdi Mirza**.
+
+## Live Demo
+https://username.github.io
+
+## Features
+- Responsive personal portfolio (About, Skills, Projects, Resume, Contact)
+- Hosted free on GitHub Pages
+- Version history tracked with Git and pull requests
+
+## Author
+Ali Mirza - 24102C0054 - TE CMPN C
