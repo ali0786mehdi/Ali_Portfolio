@@ -84,7 +84,7 @@ exports.handler = async (event) => {
 
   if (index) {
     const searchRes = index.search(message, 3);
-    retrievedChunks = searchRes.topK.filter(c => c.score >= 0.12);
+    retrievedChunks = searchRes.topK.filter(c => c.score >= 0.30);
     
     // Generate grounded local fallback
     const gen = RagEngine.GroundedGenerator.generate(message, searchRes.topK);
@@ -145,7 +145,7 @@ exports.handler = async (event) => {
           body: JSON.stringify({
             system_instruction: { parts: [{ text: groundedSystemPrompt }] },
             contents,
-            generationConfig: { maxOutputTokens: 350, temperature: 0.5 }
+            generationConfig: { maxOutputTokens: 350, temperature: 0.15 }
           })
         }
       );

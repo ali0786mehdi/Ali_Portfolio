@@ -754,14 +754,15 @@
         entry.keys.forEach((k) => { if (q.indexOf(k) !== -1) score += 1; });
         if (score > bestScore) { bestScore = score; best = entry; }
       });
-      return best ? best.answer : fallback;
+      // Require at least 2 keyword hits to avoid spurious single-word matches
+      return (best && bestScore >= 2) ? best.answer : fallback;
     }
 
     function answerFromRAG(question) {
       const idx = getIndex();
       if (idx) {
         const searchRes = idx.search(question, 3);
-        if (searchRes.topK.length > 0 && searchRes.topK[0].score >= 0.14) {
+        if (searchRes.topK.length > 0 && searchRes.topK[0].score >= 0.30) {
           const gen = RagEngine.GroundedGenerator.generate(question, searchRes.topK);
           if (!gen.abstain && gen.llmAnswer) {
             return gen.llmAnswer.replace(/\[C\d+\]/g, "").trim();

@@ -380,7 +380,7 @@
      * Extract precise evidence sentences from ranked chunks
      */
     static extractEvidence(query, rankedChunks, maxSentences = 4) {
-      if (!rankedChunks || rankedChunks.length === 0 || rankedChunks[0].score < 0.12) {
+      if (!rankedChunks || rankedChunks.length === 0 || rankedChunks[0].score < 0.30) {
         return [];
       }
 
@@ -422,7 +422,7 @@
      * Synthesize grounded answers (Extractive + Fluent LLM simulation)
      */
     static generate(query, rankedChunks) {
-      if (!rankedChunks || rankedChunks.length === 0 || rankedChunks[0].score < 0.12) {
+      if (!rankedChunks || rankedChunks.length === 0 || rankedChunks[0].score < 0.30) {
         return {
           abstain: true,
           confidence: 0,
@@ -431,12 +431,12 @@
           citations: [],
           extractiveAnswer: "I could not find sufficient grounded evidence in the indexed knowledge base to answer this query safely. In production RAG, an abstention guardrail prevents fabricating ungrounded information.",
           llmAnswer: "Based on the indexed knowledge, there is no verified context regarding this topic. Please try asking about Ali's background, projects, technical skills, or RAG architecture.",
-          traceSummary: "Query abstained: retrieval confidence below threshold (0.12)."
+          traceSummary: "Query abstained: retrieval confidence below threshold (0.30)."
         };
       }
 
       const evidence = this.extractEvidence(query, rankedChunks);
-      const topChunks = rankedChunks.filter(c => c.score >= 0.15).slice(0, 3);
+      const topChunks = rankedChunks.filter(c => c.score >= 0.30).slice(0, 3);
       const citations = topChunks.map(c => ({ id: c.id, source: c.source }));
 
       // Confidence score based on top chunk score and query term coverage
@@ -444,23 +444,17 @@
       const confidence = Math.min(99, Math.round(topScore * 85 + 15));
       const hallucinationRisk = Math.max(1, 100 - confidence);
 
-      // Extractive Answer
+      // Extractive Answer (strictly cite sentences verbatim — no connective synthesis)
       const extractiveSentences = evidence.map(e => `${e.sentence} [C${e.chunkId}]`);
       const extractiveAnswer = extractiveSentences.length > 0
         ? extractiveSentences.join(' ')
         : `${topChunks[0].chunk.sentences[0] || topChunks[0].text} [C${topChunks[0].id}]`;
 
-      // Synthesized LLM-style Grounded Answer
-      const citedIds = [...new Set(evidence.map(e => `[C${e.chunkId}]`))].join(' ');
+      // Grounded answer: extractive sentences joined cleanly — no "Furthermore"/"Additionally"
+      // stitching which creates hallucinated-sounding connective prose
       let synthesis = '';
-
-      if (evidence.length >= 2) {
-        synthesis = `${evidence[0].sentence} [C${evidence[0].chunkId}] Furthermore, ${evidence[1].sentence.charAt(0).toLowerCase() + evidence[1].sentence.slice(1)} [C${evidence[1].chunkId}]`;
-        if (evidence[2]) {
-          synthesis += ` Additionally, ${evidence[2].sentence.charAt(0).toLowerCase() + evidence[2].sentence.slice(1)} [C${evidence[2].chunkId}]`;
-        }
-      } else if (evidence.length === 1) {
-        synthesis = `${evidence[0].sentence} [C${evidence[0].chunkId}]`;
+      if (evidence.length >= 1) {
+        synthesis = evidence.map(e => `${e.sentence} [C${e.chunkId}]`).join(' ');
       } else {
         synthesis = `${topChunks[0].text} [C${topChunks[0].id}]`;
       }
