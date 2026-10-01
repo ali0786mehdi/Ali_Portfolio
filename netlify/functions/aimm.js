@@ -83,10 +83,12 @@ exports.handler = async (event) => {
   const index = getRagIndex();
 
   if (index) {
-    const searchRes = index.search(message, 3);
-    retrievedChunks = searchRes.topK.filter(c => c.score >= 0.30);
-    
-    // Generate grounded local fallback
+    const searchRes = index.search(message, 5);
+    // Use top chunks above a soft threshold for context; always include at least top 3
+    const highConfidence = searchRes.topK.filter(c => c.score >= 0.30);
+    retrievedChunks = highConfidence.length >= 2 ? highConfidence : searchRes.topK.slice(0, 3);
+
+    // Generate grounded local fallback using all retrieved chunks
     const gen = RagEngine.GroundedGenerator.generate(message, searchRes.topK);
     if (!gen.abstain && gen.llmAnswer) {
       localAnswer = gen.llmAnswer.replace(/\[C\d+\]/g, '').trim();
@@ -126,11 +128,11 @@ exports.handler = async (event) => {
     { role: 'user', parts: [{ text: message }] }
   ];
 
-  // 3. Call Google Gemini API (tries 1.5-flash first, falls back to 2.0-flash / 1.5-pro)
+  // 3. Call Google Gemini API (tries gemini-2.0-flash first, falls back to 1.5-flash / 2.5-flash)
   const candidateModels = [
-    'gemini-1.5-flash',
     'gemini-2.0-flash',
-    'gemini-1.5-pro'
+    'gemini-2.0-flash-lite',
+    'gemini-1.5-flash'
   ];
 
   let replyText = null;
