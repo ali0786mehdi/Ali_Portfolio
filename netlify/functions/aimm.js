@@ -7,13 +7,13 @@
    2. Performs hybrid retrieval (BM25 + Dense Semantic Vector Search)
       to retrieve top relevant candidate chunks for the user's question.
    3. If GEMINI_API_KEY is configured:
-      - Injects retrieved context into a grounded RAG prompt.
-      - Calls Google Gemini 1.5 Flash (with fallback to 2.0 Flash / 1.5 Pro).
+      - Injects retrieved context into a STRICTLY GROUNDED RAG prompt.
+      - Calls Google Gemini with low temperature and length limits.
       - Returns grounded reply with source citations.
    4. If GEMINI_API_KEY is not configured or upstream fails:
       - Gracefully falls back to deterministic grounded RAG synthesis
         so the assistant always responds accurately.
-------------------------------------------------------------------- */
+   ------------------------------------------------------------------- */
 
 const path = require('path');
 
@@ -39,14 +39,17 @@ function getRagIndex() {
   return ragIndex;
 }
 
-const SYSTEM_PROMPT = `You are AIMM, the AI assistant embedded in Ali Mehdi Mirza's portfolio website ("AliOS").
-Speak in first person as AIMM, a friendly, concise, and highly knowledgeable assistant.
+const SYSTEM_PROMPT = `You are AIMM, the AI assistant for Ali Mehdi Mirza's portfolio (AliOS).
+Your ONLY job is to answer questions based strictly on the retrieved knowledge below.
 
-CRITICAL GROUNDING RULES:
-1. Answer the question strictly using the verified information provided in the "Retrieved Knowledge Chunks" section below.
-2. Keep responses short and conversational (2-4 sentences).
-3. If the retrieved context does not contain the answer, politely invite the user to reach out directly to Ali via the Contact window or at alimehdimirza1010@gmail.com.
-4. Do not fabricate facts, numbers, or experiences that are not grounded in the context.`;
+🚨 CRITICAL RULES:
+1. Answer ONLY using information from the "Retrieved Context" section.
+2. If you cannot answer from the context, respond: "I don't have verified context on that. Please ask about Ali's projects, skills, education, or availability, or use the Contact window."
+3. NEVER add facts, numbers, links, or experiences not in the context.
+4. Keep responses short (1-3 sentences max).
+5. Be conversational but always grounded.
+
+You are being audited for hallucinations. Do not fabricate.`;
 
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': '*',
@@ -100,7 +103,7 @@ exports.handler = async (event) => {
   // If no Gemini key is configured on Netlify, return the high-quality local RAG answer
   if (!apiKey) {
     const fallbackReply = localAnswer || 
-      "I'm AIMM, Ali's portfolio agent. I don't have enough verified context to answer that safely, but you can explore Ali's projects and skills on the desktop, or reach out at alimehdimirza1010@gmail.com.";
+      "I'm AIMM, Ali's portfolio agent. I don't have verified context to answer that—try asking about Ali's stack, projects, experience, or education. Or use the Contact window to reach Ali directly.";
 
     return {
       statusCode: 200,
@@ -113,12 +116,19 @@ exports.handler = async (event) => {
     };
   }
 
-  // 2. Format Grounded Context for Gemini
+  // 2. Format Strictly Grounded Context for Gemini
+  // IMPORTANT: We prepend a strict guardrail that prevents the model from adding any external knowledge
   const contextText = retrievedChunks.length > 0
-    ? retrievedChunks.map((c, i) => `[Source ${i + 1} - Chunk ${c.id}]:\n${c.text}`).join('\n\n')
-    : 'No directly relevant chunks found in knowledge base.';
+    ? retrievedChunks.map((c, i) => `[${i + 1}] ${c.text}`).join('\n\n')
+    : 'NO CONTEXT FOUND';
 
-  const groundedSystemPrompt = `${SYSTEM_PROMPT}\n\n### Retrieved Knowledge Chunks:\n${contextText}`;
+  const groundedSystemPrompt = `${SYSTEM_PROMPT}
+
+=== Retrieved Context (answer ONLY from this) ===
+${contextText}
+=== End Context ===
+
+If the context above does not contain enough information to answer the user's question, politely decline and redirect them.`;
 
   const contents = [
     ...history.map(h => ({
@@ -128,7 +138,7 @@ exports.handler = async (event) => {
     { role: 'user', parts: [{ text: message }] }
   ];
 
-  // 3. Call Google Gemini API (tries gemini-2.0-flash first, falls back to 1.5-flash / 2.5-flash)
+  // 3. Call Google Gemini API with STRICT anti-hallucination settings
   const candidateModels = [
     'gemini-2.0-flash',
     'gemini-2.0-flash-lite',
@@ -147,7 +157,18 @@ exports.handler = async (event) => {
           body: JSON.stringify({
             system_instruction: { parts: [{ text: groundedSystemPrompt }] },
             contents,
-            generationConfig: { maxOutputTokens: 350, temperature: 0.15 }
+            generationConfig: {
+              maxOutputTokens: 200,  // Reduced from 350 to prevent rambling
+              temperature: 0.05,     // Reduced from 0.15 to be more conservative
+              topP: 0.9,
+              topK: 10
+            },
+            safetySettings: [
+              {
+                category: 'HARM_CATEGORY_UNSPECIFIED',
+                threshold: 'BLOCK_NONE'
+              }
+            ]
           })
         }
       );
@@ -159,6 +180,7 @@ exports.handler = async (event) => {
       }
     } catch (err) {
       // Continue to next model on network/model error
+      console.error(`Error calling ${model}:`, err.message);
     }
   }
 
@@ -175,12 +197,13 @@ exports.handler = async (event) => {
     };
   }
 
-  // Upstream fallback
+  // Upstream fallback: Use local RAG instead of risking hallucination
+  const safeFallback = localAnswer || "I couldn't process that just now. Try asking about Ali's tech stack, projects, education, or experience. Or email Ali directly at alimehdimirza1010@gmail.com.";
   return {
     statusCode: 200,
     headers: CORS_HEADERS,
     body: JSON.stringify({
-      reply: localAnswer || "I couldn't reach the model just now, but you can find Ali's projects, experience, and contact info directly in the desktop windows or email him at alimehdimirza1010@gmail.com.",
+      reply: safeFallback,
       ragGrounded: !!localAnswer,
       sources: retrievedChunks.map(c => ({ id: c.id, source: c.source }))
     })
